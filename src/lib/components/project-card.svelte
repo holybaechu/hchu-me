@@ -91,7 +91,7 @@
 		onkeydown={handleCardKeydown}
 	>
 		<div class="space-y-3">
-			<div class="flex items-start justify-between gap-3">
+			<div class="flex items-center justify-between gap-3">
 				<div class="inline-flex min-w-0 items-center gap-1">
 					<h3 class="truncate text-lg font-semibold transition-colors group-hover:text-primary">
 						{project.title}

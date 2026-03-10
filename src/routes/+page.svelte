@@ -104,7 +104,7 @@
 						<HoverCard.Root openDelay={0} closeDelay={0}>
 							<HoverCard.Trigger>
 								<Sheet.Trigger
-									class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-border/70 bg-card transition-all hover:border-primary/50 hover:bg-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+									class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-border/70 bg-card transition-all hover:border-primary/50 hover:bg-accent/40 hover:cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
 									aria-label={`${tech.name} 기술 상세 보기`}
 								>
 									{#if tech.icon_url}
