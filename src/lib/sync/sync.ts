@@ -1,12 +1,24 @@
 import { Client as NotionClient, type PageObjectResponse } from '@notionhq/client';
-import type { ProjectWithContent, SyncResult } from './types';
+import type {
+	BlogSyncResult,
+	BlogWithContent,
+	ProjectWithContent,
+	SyncResult,
+	TechLookupItem
+} from './types';
 import { NOTION_PROP_STATUS, NOTION_PROP_STATUS_DONE } from '..';
-import { extractProjectData, fetchAllDataSourcePages, fetchTechStackNames } from './notion';
+import { extractBlogData, extractProjectData, fetchAllDataSourcePages, fetchTechNames } from './notion';
 import {
-	buildProjectStatements,
-	buildTechStackStatements,
+	cleanupDeletedBlogs,
+	cleanupDeletedTechs,
 	cleanupDeletedProjects,
+	getBlogContent,
 	getLastSyncTime,
+	getProjectContent,
+	upsertAllTechs,
+	upsertBlog,
+	upsertProject,
+	upsertProjectTechs,
 	updateLastSyncTime
 } from './db';
 
@@ -14,28 +26,20 @@ export async function syncProject(
 	notion: NotionClient,
 	db: D1Database,
 	page: PageObjectResponse,
-	techStackNames: Map<string, string>,
+	techs: Map<string, TechLookupItem>,
 	lastSyncTime?: string
 ): Promise<SyncResult> {
 	const projectData = extractProjectData(page);
-	if (!projectData) {
-		return { projectData: null, statements: [] };
-	}
-
-	const shouldFetchContent =
-		!lastSyncTime || new Date(projectData.lastEditedTime) > new Date(lastSyncTime);
+	if (!projectData) return { projectData: null };
 
 	let content: string;
-	if (shouldFetchContent) {
-		const contentResponse = await notion.pages.retrieveMarkdown({ page_id: page.id });
-		content =
-			typeof contentResponse === 'string' ? contentResponse : JSON.stringify(contentResponse);
+	if (
+		!lastSyncTime ||
+		new Date(projectData.lastEditedTime) > new Date(lastSyncTime)
+	) {
+		content = (await notion.pages.retrieveMarkdown({ page_id: page.id })).markdown;
 	} else {
-		const existing = await db
-			.prepare('SELECT content FROM projects WHERE id = ?')
-			.bind(page.id)
-			.first<{ content: string }>();
-		content = existing?.content ?? '';
+		content = await getProjectContent(db, page.id);
 	}
 
 	const project: ProjectWithContent = {
@@ -43,20 +47,53 @@ export async function syncProject(
 		content
 	};
 
-	const rewriteRelations = shouldFetchContent;
-	const statements = await buildProjectStatements(db, project, { rewriteRelations });
+	const rewriteRelations = !lastSyncTime || new Date(projectData.lastEditedTime) > new Date(lastSyncTime);
+	await upsertProject(db, project, { rewriteRelations });
 
 	if (rewriteRelations) {
-		const techStatements = buildTechStackStatements(db, page, project.id, techStackNames);
-		statements.push(...techStatements);
+		await upsertProjectTechs(db, page, project.id, techs);
 	}
 
-	return { projectData: project, statements };
+	return { projectData: project };
+}
+
+export async function syncBlog(
+	notion: NotionClient,
+	db: D1Database,
+	page: PageObjectResponse,
+	lastSyncTime?: string
+): Promise<BlogSyncResult> {
+	const blogData = extractBlogData(page);
+	if (!blogData) return { blogData: null };
+
+	let content: string;
+	if (
+		!lastSyncTime ||
+		new Date(blogData.lastEditedTime) > new Date(lastSyncTime)
+	) {
+		content = (await notion.pages.retrieveMarkdown({ page_id: page.id })).markdown;
+	} else {
+		content = await getBlogContent(db, page.id);
+	}
+
+	const blog: BlogWithContent = {
+		...blogData,
+		content
+	};
+
+	await upsertBlog(db, blog);
+
+	return { blogData: blog };
 }
 
 export async function syncAll(env: App.Platform['env']) {
-	const { NOTION_TOKEN, NOTION_PROJECTS_DATA_SOURCE_ID, NOTION_TECH_STACKS_DATA_SOURCE_ID, DB } =
-		env;
+	const {
+		NOTION_TOKEN,
+		NOTION_PROJECTS_DATA_SOURCE_ID,
+		NOTION_BLOGS_DATA_SOURCE_ID,
+		NOTION_TECHS_DATA_SOURCE_ID,
+		DB
+	} = env;
 
 	const lastSyncTime = await getLastSyncTime(DB);
 
@@ -65,39 +102,44 @@ export async function syncAll(env: App.Platform['env']) {
 		fetch: fetch.bind(globalThis)
 	});
 
-	const techStackNames = await fetchTechStackNames(notion, NOTION_TECH_STACKS_DATA_SOURCE_ID);
+	const techs = await fetchTechNames(notion, NOTION_TECHS_DATA_SOURCE_ID);
+	const notionTechIds = new Set(techs.keys());
 
-	const results = await fetchAllDataSourcePages(notion, NOTION_PROJECTS_DATA_SOURCE_ID, {
+	await upsertAllTechs(DB, techs);
+
+	const projectPages = await fetchAllDataSourcePages(notion, NOTION_PROJECTS_DATA_SOURCE_ID, {
 		property: NOTION_PROP_STATUS,
 		status: { equals: NOTION_PROP_STATUS_DONE }
 	});
 	const notionProjectIds = new Set<string>();
 	let syncedProjectCount = 0;
-	const allStatements: D1PreparedStatement[] = [];
 
-	for (const page of results) {
+	for (const page of projectPages) {
 		notionProjectIds.add(page.id);
-		const { projectData, statements } = await syncProject(
-			notion,
-			DB,
-			page,
-			techStackNames,
-			lastSyncTime
-		);
+		const { projectData } = await syncProject(notion, DB, page, techs, lastSyncTime);
 		if (projectData) {
 			syncedProjectCount++;
-			allStatements.push(...statements);
 		}
 	}
 
-	if (allStatements.length > 0) {
-		const batchChunkSize = 100;
-		for (let i = 0; i < allStatements.length; i += batchChunkSize) {
-			await DB.batch(allStatements.slice(i, i + batchChunkSize));
+	const blogPages = await fetchAllDataSourcePages(notion, NOTION_BLOGS_DATA_SOURCE_ID, {
+		property: NOTION_PROP_STATUS,
+		status: { equals: NOTION_PROP_STATUS_DONE }
+	});
+	const notionBlogIds = new Set<string>();
+	let syncedBlogCount = 0;
+
+	for (const page of blogPages) {
+		notionBlogIds.add(page.id);
+		const { blogData } = await syncBlog(notion, DB, page, lastSyncTime);
+		if (blogData) {
+			syncedBlogCount++;
 		}
 	}
 
-	const deletedCount = await cleanupDeletedProjects(DB, notionProjectIds);
+	const deletedProjectCount = await cleanupDeletedProjects(DB, notionProjectIds);
+	const deletedTechCount = await cleanupDeletedTechs(DB, notionTechIds);
+	const deletedBlogCount = await cleanupDeletedBlogs(DB, notionBlogIds);
 
 	const now = new Date().toISOString();
 	await updateLastSyncTime(DB, now);
@@ -105,19 +147,36 @@ export async function syncAll(env: App.Platform['env']) {
 	return {
 		success: true,
 		synced_projects: syncedProjectCount,
-		deleted_projects: deletedCount,
-		synced_tech_stacks: techStackNames.size,
+		deleted_projects: deletedProjectCount,
+		synced_blogs: syncedBlogCount,
+		deleted_blogs: deletedBlogCount,
+		synced_techs: techs.size,
+		deleted_techs: deletedTechCount,
 		last_sync: lastSyncTime,
 		new_sync: now
 	};
 }
 
-export { extractProjectData, fetchTechStackNames } from './notion';
+export { extractBlogData, extractProjectData, fetchTechNames } from './notion';
 export {
 	getLastSyncTime,
 	updateLastSyncTime,
-	buildProjectStatements,
-	buildTechStackStatements,
+	upsertProject,
+	upsertProjectTechs,
+	upsertAllTechs,
+	getProjectContent,
+	upsertBlog,
+	getBlogContent,
+	cleanupDeletedBlogs,
+	cleanupDeletedTechs,
 	cleanupDeletedProjects
 } from './db';
-export type { ProjectData, ProjectWithContent, SyncResult, TechStackData } from './types';
+export type {
+	BlogData,
+	BlogWithContent,
+	BlogSyncResult,
+	ProjectData,
+	ProjectWithContent,
+	SyncResult,
+	TechData
+} from './types';

@@ -40,3 +40,23 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+
+## Database Migrations (Drizzle + D1)
+
+Generate SQL migrations from Drizzle schema:
+
+```sh
+pnpm db:generate
+```
+
+Apply migrations to local D1:
+
+```sh
+pnpm db:migrate:local
+```
+
+Apply migrations to remote D1:
+
+```sh
+pnpm db:migrate:remote
+```

@@ -5,7 +5,8 @@ declare global {
 		SYNC_SECRET: string;
 		NOTION_TOKEN: string;
 		NOTION_PROJECTS_DATA_SOURCE_ID: string;
-		NOTION_TECH_STACKS_DATA_SOURCE_ID: string;
+		NOTION_BLOGS_DATA_SOURCE_ID: string;
+		NOTION_TECHS_DATA_SOURCE_ID: string;
 		DB: D1Database;
 	}
 
