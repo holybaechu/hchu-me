@@ -27,7 +27,7 @@
 	},
 	"placement": {
 		"mode": "smart"
-	}
+	},
 	/**
 	 * Smart Placement
 	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
@@ -45,12 +45,16 @@
 	 * Note: Use secrets to store sensitive data.
 	 * https://developers.cloudflare.com/workers/configuration/secrets/
 	 */
-	// "vars": {  "MY_VARIABLE": "production_value" }
+	"vars": {
+		"NOTION_PROJECTS_DATA_SOURCE_ID": "31a05ce4-3a74-800c-a2ef-000b49bacd91",
+		"NOTION_TECHS_DATA_SOURCE_ID": "31a05ce4-3a74-80f1-82f1-000be533e689",
+		"NOTION_BLOGS_DATA_SOURCE_ID": "31f05ce4-3a74-8093-84e1-000b4bc4af28"
+	},
 	/**
 	 * Static Assets
 	 * https://developers.cloudflare.com/workers/static-assets/binding/
 	 */
-	// "assets": {  "directory": "./public/",  "binding": "ASSETS" }
+	// "assets": { "directory": "./public/", "binding": "ASSETS" }
 	/**
 	 * Service Bindings (communicate between multiple Workers)
 	 * https://developers.cloudflare.com/workers/wrangler/configuration/#service-bindings
