@@ -7,7 +7,7 @@
 </script>
 
 <svelte:head>
-	<title>Blog | hchu.me</title>
+	<title>블로그 | hchu.me</title>
 </svelte:head>
 
 <div class="py-6">

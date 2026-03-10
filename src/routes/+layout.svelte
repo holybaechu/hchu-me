@@ -16,7 +16,7 @@
 	<header class="flex w-full items-center justify-between py-5">
 		<Button href={resolve('/')} variant="ghost">hchu.me</Button>
 		<div>
-			<Button href="/blog" variant="ghost">blog</Button>
+			<Button href="/blog" variant="ghost">블로그</Button>
 		</div>
 		<Button onclick={toggleMode} variant="ghost" size="icon">
 			<Sun
