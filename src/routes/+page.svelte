@@ -42,7 +42,7 @@
 			organization: 'LabyMod',
 			position: `${$_('home.sections.experiences.positions.pluginDeveloper')}, ${$_('home.sections.experiences.positions.translator')}`,
 			period: '2023 - 2025',
-			description: '약 4개의 개인 플러그인을 개발하고 배포했고, 1개의 공식 플러그인에 기여했습니다. 한국어 번역도 담당했습니다.',
+			description: '약 4개의 개인 플러그인을 개발하고 배포했고, 1개의 공식 플러그인에 기여했습니다. 공식 한국어 번역도 담당했습니다.',
 			iconUrl: 'icons/labymod.png'
 		}
 	];
