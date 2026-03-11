@@ -6,7 +6,7 @@
 	import Experience from '$lib/components/experience.svelte';
 	import { resolve } from '$app/paths';
 	import { Github, Mail, ExternalLink, MapPin, Building2, AlertCircle, Layers, Folder, ArrowDownNarrowWide } from '@lucide/svelte';
-	import { _ } from 'svelte-i18n';
+	import { _, locale } from 'svelte-i18n';
 
 	let { data } = $props();
 
@@ -30,22 +30,26 @@
 		})
 	);
 
-	const experiences = [
-		{
-			organization: '경북소프트웨어마이스터고등학교',
-			position: '재학생',
-			period: `2026 - ${$_('home.sections.experiences.current')}`,
-			description: '현재 재학 중인 학교입니다.',
-			iconUrl: 'icons/gbsw.webp'
-		},
-		{
-			organization: 'LabyMod',
-			position: `${$_('home.sections.experiences.positions.pluginDeveloper')}, ${$_('home.sections.experiences.positions.translator')}`,
-			period: '2023 - 2025',
-			description: '약 4개의 개인 플러그인을 개발하고 배포했고, 1개의 공식 플러그인에 기여했습니다. 공식 한국어 번역도 담당했습니다.',
-			iconUrl: 'icons/labymod.png'
-		}
-	];
+	const experiences = $derived.by(() => {
+		if (!$locale) return [];
+		
+		return [
+			{
+				organization: '경북소프트웨어마이스터고등학교',
+				position: '재학생',
+				period: `2026 - ${$_('home.sections.experiences.current')}`,
+				description: '현재 재학 중인 학교입니다.',
+				iconUrl: 'icons/gbsw.webp'
+			},
+			{
+				organization: 'LabyMod',
+				position: `${$_('home.sections.experiences.positions.pluginDeveloper')}, ${$_('home.sections.experiences.positions.translator')}`,
+				period: '2023 - 2025',
+				description: '약 4개의 개인 플러그인을 개발하고 배포했고, 1개의 공식 플러그인에 기여했습니다. 공식 한국어 번역도 담당했습니다.',
+				iconUrl: 'icons/labymod.png'
+			}
+		];
+	});
 </script>
 
 <svelte:head>
