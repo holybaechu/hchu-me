@@ -20,7 +20,15 @@
 		},
 		"sections": {
 			"techStack": "기술 스택",
-			"projects": "프로젝트"
+			"projects": "프로젝트",
+			"experiences": {
+				"title": "경험",
+                "positions": {
+                    "pluginDeveloper": "플러그인 개발자",
+                    "translator": "번역가"
+                },
+                "current": "현재"
+			}
 		},
 		"tech": {
 			"detailsAria": "{name} 기술 상세 보기",

@@ -3,8 +3,9 @@
 	import * as HoverCard from '$lib/components/ui/hover-card';
 	import * as Sheet from '$lib/components/ui/sheet';
 	import ProjectCard from '$lib/components/project-card.svelte';
+	import Experience from '$lib/components/experience.svelte';
 	import { resolve } from '$app/paths';
-	import { Github, Mail, ExternalLink, MapPin, Building2, AlertCircle, Layers, Folder } from '@lucide/svelte';
+	import { Github, Mail, ExternalLink, MapPin, Building2, AlertCircle, Layers, Folder, ArrowDownNarrowWide } from '@lucide/svelte';
 	import { _ } from 'svelte-i18n';
 
 	let { data } = $props();
@@ -28,6 +29,23 @@
 			return { ...tech, projects };
 		})
 	);
+
+	const experiences = [
+		{
+			organization: '경북소프트웨어마이스터고등학교',
+			position: '재학생',
+			period: `2026 - ${$_('home.sections.experiences.current')}`,
+			description: '현재 재학 중인 학교입니다.',
+			iconUrl: 'icons/gbsw.webp'
+		},
+		{
+			organization: 'LabyMod',
+			position: `${$_('home.sections.experiences.positions.pluginDeveloper')}, ${$_('home.sections.experiences.positions.translator')}`,
+			period: '2023 - 2025',
+			description: '약 4개의 개인 플러그인을 개발하고 배포했고, 1개의 공식 플러그인에 기여했습니다. 한국어 번역도 담당했습니다.',
+			iconUrl: 'icons/labymod.png'
+		}
+	];
 </script>
 
 <svelte:head>
@@ -180,17 +198,19 @@
 {/if}
 
 <!-- Experiences -->
-<!-- <section class="py-2">
+<section class="py-2">
 	<div class="flex items-center gap-2 mb-6">
 		<ArrowDownNarrowWide class="h-5 w-5 text-muted-foreground" />
 		<h2 class="text-sm font-medium text-muted-foreground tracking-wide uppercase">
-			home.sections.experiences
+			{$_('home.sections.experiences.title')}
 		</h2>
 	</div>
-	<div>
-
+	<div class="space-y-4">
+		{#each experiences as experience (experience.organization + experience.period)}
+			<Experience {experience} />
+		{/each}
 	</div>
-</section> -->
+</section>
 
 <!-- Projects -->
 {#if data.projects.length > 0}
