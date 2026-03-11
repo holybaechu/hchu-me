@@ -3,6 +3,7 @@
 	import { goto } from '$app/navigation';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { resolve } from '$app/paths';
+	import { _ } from 'svelte-i18n';
 
 	type ProjectCardData = {
 		title: string;
@@ -86,7 +87,7 @@
 		class="group cursor-pointer rounded-lg border border-border bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-primary/20 hover:bg-accent/50"
 		role="link"
 		tabindex="0"
-		aria-label={`${project.title} 상세 페이지로 이동`}
+		aria-label={$_('projectCard.aria.goToDetail', { values: { title: project.title } })}
 		onclick={navigateToDetail}
 		onkeydown={handleCardKeydown}
 	>
@@ -106,8 +107,8 @@
 								target="_blank"
 								rel="noopener noreferrer"
 								variant="outline"
-								aria-label="Open GitHub"
-								title="GitHub"
+								aria-label={$_('projectCard.actions.openGithub')}
+								title={$_('projectCard.actions.github')}
 							>
 								<Github class="h-3.5 w-3.5" />
 							</Button>
@@ -118,8 +119,8 @@
 								target="_blank"
 								rel="noopener noreferrer"
 								variant="outline"
-								aria-label="Open website"
-								title="Website"
+								aria-label={$_('projectCard.actions.openWebsite')}
+								title={$_('projectCard.actions.website')}
 							>
 								<ExternalLink class="h-3.5 w-3.5" />
 							</Button>

@@ -1,10 +1,12 @@
 <script lang="ts">
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
+	import '$lib/i18n';
 	import { resolve } from '$app/paths';
 	import { Button } from '$lib/components/ui/button';
 	import { toggleMode, ModeWatcher } from 'mode-watcher';
 	import { Moon, Sun } from '@lucide/svelte';
+	import { _ } from 'svelte-i18n';
 
 	let { children } = $props();
 </script>
@@ -16,7 +18,7 @@
 	<header class="flex w-full items-center justify-between py-5">
 		<Button href={resolve('/')} variant="ghost">hchu.me</Button>
 		<div>
-			<Button href="/blog" variant="ghost">블로그</Button>
+			<Button href="/blog" variant="ghost">{$_('layout.nav.blog')}</Button>
 		</div>
 		<Button onclick={toggleMode} variant="ghost" size="icon">
 			<Sun

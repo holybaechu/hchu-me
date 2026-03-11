@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { ArrowLeft, FileText } from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button';
+	import { _ } from 'svelte-i18n';
 
 	let { data } = $props();
 </script>
@@ -13,7 +14,7 @@
 <div class="py-6">
 	<Button href="/blog" variant="ghost" class="gap-2">
 		<ArrowLeft class="h-4 w-4" />
-		블로그 목록
+		{$_('blog.list')}
 	</Button>
 </div>
 
@@ -21,7 +22,7 @@
 	<div class="space-y-4">
 		<div class="flex items-center gap-2 text-sm text-muted-foreground">
 			<FileText class="h-4 w-4" />
-			<span>블로그</span>
+			<span>{$_('blog.title')}</span>
 		</div>
 		<h1 class="text-3xl font-bold md:text-4xl">{data.blog.title}</h1>
 		{#if data.blog.description}

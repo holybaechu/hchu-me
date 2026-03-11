@@ -4,6 +4,7 @@
 	import { tick } from 'svelte';
 	import mermaid from 'mermaid';
 	import { mode } from 'mode-watcher';
+	import { _ } from 'svelte-i18n';
 
 	let { data } = $props();
 
@@ -49,7 +50,7 @@
 <div class="py-6">
 	<Button href="/" variant="ghost" class="gap-2">
 		<ArrowLeft class="h-4 w-4" />
-		뒤로가기
+		{$_('project.back')}
 	</Button>
 </div>
 
@@ -57,7 +58,7 @@
 	<div class="space-y-4">
 		<div class="flex items-center gap-2 text-sm text-muted-foreground">
 			<Folder class="h-4 w-4" />
-			<span>프로젝트</span>
+			<span>{$_('project.title')}</span>
 		</div>
 		<div class="flex flex-wrap items-start justify-between gap-3">
 			<h1 class="text-3xl font-bold md:text-4xl">{data.project.title}</h1>
@@ -69,8 +70,8 @@
 							target="_blank"
 							rel="noopener noreferrer"
 							variant="outline"
-							aria-label="Open GitHub"
-							title="GitHub"
+							aria-label={$_('project.actions.openGithub')}
+							title={$_('project.actions.github')}
 						>
 							<Github class="h-3.5 w-3.5" />
 						</Button>
@@ -81,8 +82,8 @@
 							target="_blank"
 							rel="noopener noreferrer"
 							variant="outline"
-							aria-label="Open website"
-							title="Website"
+							aria-label={$_('project.actions.openWebsite')}
+							title={$_('project.actions.website')}
 						>
 							<ExternalLink class="h-3.5 w-3.5" />
 						</Button>

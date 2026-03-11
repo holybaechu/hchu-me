@@ -5,6 +5,7 @@
 	import ProjectCard from '$lib/components/project-card.svelte';
 	import { resolve } from '$app/paths';
 	import { Github, Mail, ExternalLink, MapPin, Building2, AlertCircle, Layers, Folder } from '@lucide/svelte';
+	import { _ } from 'svelte-i18n';
 
 	let { data } = $props();
 
@@ -30,7 +31,7 @@
 </script>
 
 <svelte:head>
-	<title>hchu.me</title>
+	<title>{$_('home.title')}</title>
 </svelte:head>
 
 <!-- Hero -->
@@ -39,20 +40,20 @@
 		<!-- Intro -->
 		<div class="space-y-2">
 			<h1 class="text-3xl md:text-5xl font-bold leading-tight">
-				안녕하세요,<br />
-				<span class="text-green-600">풀스택 개발자 배준후</span>입니다.
+				{$_('home.hero.greeting')}<br />
+				<span class="text-green-600">{$_('home.hero.nameRole')}</span>{$_('home.hero.introSuffix')}
 			</h1>
 			<p class="text-lg max-w-2xl leading-relaxed">
-				사용자의 모든 접근 방식을 고려하며 시스템의 빈틈을 집요하게 파고드는 것을 좋아합니다.
+				{$_('home.hero.description')}
 			</p>
 			<div class="flex flex-wrap gap-4 text-sm text-muted-foreground">
 				<div class="flex items-center gap-1.5">
 					<MapPin class="h-4 w-4" />
-					<span>대한민국 경상남도 창원시</span>
+					<span>{$_('home.hero.location')}</span>
 				</div>
 				<div class="flex items-center gap-1.5">
 					<Building2 class="h-4 w-4" />
-					<span>경북소프트웨어마이스터고등학교</span>
+					<span>{$_('home.hero.school')}</span>
 				</div>
 			</div>
 		</div>
@@ -68,7 +69,7 @@
 				hello@hchu.me
 			</Button>
 			<Button href={resolve('/blog')} variant="default" class="gap-2">
-				블로그 보기
+				{$_('home.hero.blogButton')}
 				<ExternalLink class="h-4 w-4" />
 			</Button>
 		</div>
@@ -81,7 +82,7 @@
 		<div class="flex items-start gap-3 p-4 rounded-lg border border-destructive/20 bg-destructive/10 text-destructive">
 			<AlertCircle class="h-5 w-5 mt-0.5 shrink-0" />
 			<div>
-				<p class="font-medium">오류가 발생했습니다</p>
+				<p class="font-medium">{$_('home.error.title')}</p>
 				<p class="text-sm mt-1">{data.error}</p>
 			</div>
 		</div>
@@ -94,7 +95,7 @@
 		<div class="flex items-center gap-2 mb-6">
 			<Layers class="h-5 w-5 text-muted-foreground" />
 			<h2 class="text-sm font-medium text-muted-foreground tracking-wide uppercase">
-				기술 스택
+				{$_('home.sections.techStack')}
 			</h2>
 		</div>
 		<div class="overflow-x-auto pb-2">
@@ -105,7 +106,7 @@
 							<HoverCard.Trigger>
 								<Sheet.Trigger
 									class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-border/70 bg-card transition-all hover:border-primary/50 hover:bg-accent/40 hover:cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-									aria-label={`${tech.name} 기술 상세 보기`}
+									aria-label={$_('home.tech.detailsAria', { values: { name: tech.name } })}
 								>
 									{#if tech.icon_url}
 										<img src={tech.icon_url} alt={tech.name} class="h-7 w-7 object-contain" loading="lazy" />
@@ -130,7 +131,7 @@
 									<div class="space-y-1">
 										<p class="font-semibold leading-none">{tech.name}</p>
 										<p class="text-sm text-muted-foreground">
-											{tech.projects.length}개 프로젝트에서 사용 중
+											{$_('home.tech.usedInProjects', { values: { count: tech.projects.length } })}
 										</p>
 									</div>
 								</div>
@@ -152,7 +153,7 @@
 									<div class="space-y-1">
 										<Sheet.Title>{tech.name}</Sheet.Title>
 										<Sheet.Description>
-											이 기술을 사용하는 프로젝트 {tech.projects.length}개
+											{$_('home.tech.projectsUsingTech', { values: { count: tech.projects.length } })}
 										</Sheet.Description>
 									</div>
 								</div>
@@ -167,7 +168,7 @@
 										/>
 									{/each}
 								{:else}
-									<p class="text-sm text-muted-foreground">연결된 프로젝트가 없습니다.</p>
+									<p class="text-sm text-muted-foreground">{$_('home.tech.noLinkedProjects')}</p>
 								{/if}
 							</div>
 						</Sheet.Content>
@@ -183,7 +184,7 @@
 	<div class="flex items-center gap-2 mb-6">
 		<ArrowDownNarrowWide class="h-5 w-5 text-muted-foreground" />
 		<h2 class="text-sm font-medium text-muted-foreground tracking-wide uppercase">
-			경험
+			home.sections.experiences
 		</h2>
 	</div>
 	<div>
@@ -197,7 +198,7 @@
 		<div class="flex items-center gap-2 mb-6">
 			<Folder class="h-5 w-5 text-muted-foreground" />
 			<h2 class="text-sm font-medium text-muted-foreground tracking-wide uppercase">
-				프로젝트
+				{$_('home.sections.projects')}
 			</h2>
 		</div>
 		<div class="grid gap-4 md:grid-cols-2">
@@ -212,11 +213,11 @@
 		<div class="flex items-center gap-2 mb-6">
 			<Folder class="h-5 w-5 text-muted-foreground" />
 			<h2 class="text-sm font-medium text-muted-foreground tracking-wide uppercase">
-				프로젝트
+				{$_('home.sections.projects')}
 			</h2>
 		</div>
 		<div class="p-8 text-center border border-dashed border-border rounded-lg">
-			<p class="text-muted-foreground">프로젝트가 아직 등록되지 않았습니다.</p>
+			<p class="text-muted-foreground">{$_('home.empty.noProjects')}</p>
 		</div>
 	</section>
 {/if}
