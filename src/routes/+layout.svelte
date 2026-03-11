@@ -2,7 +2,6 @@
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
 	import '$lib/i18n';
-	import { resolve } from '$app/paths';
 	import { Button } from '$lib/components/ui/button';
 	import { toggleMode, ModeWatcher } from 'mode-watcher';
 	import { Moon, Sun } from '@lucide/svelte';
@@ -16,8 +15,8 @@
 <ModeWatcher />
 <div class="mx-auto w-full max-w-7xl px-4">
 	<header class="flex w-full items-center justify-between py-5">
-		<Button href={resolve('/')} variant="ghost">hchu.me</Button>
-		<div>
+		<div class="flex gap-1">
+			<Button href="/" variant="ghost" class="font-bold">hchu.me</Button>
 			<Button href="/blog" variant="ghost">{$_('layout.nav.blog')}</Button>
 		</div>
 		<Button onclick={toggleMode} variant="ghost" size="icon">
