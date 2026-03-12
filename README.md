@@ -3,7 +3,7 @@
 개인 포트폴리오/블로그 사이트입니다.  
 SvelteKit + Cloudflare Workers + D1 기반으로 동작하며, Notion 데이터를 주기적으로 동기화해 프로젝트/블로그 콘텐츠를 서비스합니다.
 
-- 프로젝트 설정 방법 외의 내용은 [hchu.me 프로젝트 상세 페이지](https://hchu.me/project/hchu-me)를 참고해주세요.
+- 프로젝트 설정 방법 이외의 내용은 [hchu.me 프로젝트 상세 페이지](https://hchu.me/project/hchu-me)를 참고해주세요.
 
 ## 시작하기
 

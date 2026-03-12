@@ -47,7 +47,10 @@ export const load: PageServerLoad = async ({ params, platform }) => {
 			throw error(404, 'Project not found.');
 		}
 
-		const renderedContent = await marked(project.content || '');
+		const renderedContent = await marked.parse(project.content || '', {
+			gfm: true,
+			breaks: true
+		});
 		const projectTechRows = await db
 			.select({
 				name: techs.name,

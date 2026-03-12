@@ -43,7 +43,10 @@ export const load: PageServerLoad = async ({ params, platform }) => {
 			throw error(404, 'Blog not found.');
 		}
 
-		const renderedContent = await marked(blog.content || '');
+		const renderedContent = await marked.parse(blog.content || '', {
+			gfm: true,
+			breaks: true
+		});
 
 		return {
 			blog: {
