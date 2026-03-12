@@ -2,8 +2,8 @@
 	import { ChevronRight, ExternalLink, Github } from '@lucide/svelte';
 	import { goto } from '$app/navigation';
 	import Button from '$lib/components/ui/button/button.svelte';
+	import * as m from '$lib/paraglide/messages.js';
 	import { resolve } from '$app/paths';
-	import { _ } from 'svelte-i18n';
 
 	type ProjectCardData = {
 		title: string;
@@ -87,7 +87,7 @@
 		class="group cursor-pointer rounded-lg border border-border bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-primary/20 hover:bg-accent/50"
 		role="link"
 		tabindex="0"
-		aria-label={$_('projectCard.aria.goToDetail', { values: { title: project.title } })}
+		aria-label={m.project_card_aria_go_to_detail({ title: project.title })}
 		onclick={navigateToDetail}
 		onkeydown={handleCardKeydown}
 	>
@@ -107,8 +107,8 @@
 								target="_blank"
 								rel="noopener noreferrer"
 								variant="outline"
-								aria-label={$_('projectCard.actions.openGithub')}
-								title={$_('projectCard.actions.github')}
+								aria-label={m.project_card_actions_open_github()}
+								title={m.project_card_actions_github()}
 							>
 								<Github class="h-3.5 w-3.5" />
 							</Button>
@@ -119,8 +119,8 @@
 								target="_blank"
 								rel="noopener noreferrer"
 								variant="outline"
-								aria-label={$_('projectCard.actions.openWebsite')}
-								title={$_('projectCard.actions.website')}
+								aria-label={m.project_card_actions_open_website()}
+								title={m.project_card_actions_website()}
 							>
 								<ExternalLink class="h-3.5 w-3.5" />
 							</Button>

@@ -1,12 +1,12 @@
 <script>
-	import Button from "$lib/components/ui/button/button.svelte";
+	import Button from '$lib/components/ui/button/button.svelte';
 	import * as HoverCard from '$lib/components/ui/hover-card';
 	import * as Sheet from '$lib/components/ui/sheet';
 	import ProjectCard from '$lib/components/project-card.svelte';
 	import Experience from '$lib/components/experience.svelte';
 	import { resolve } from '$app/paths';
+	import * as m from '$lib/paraglide/messages.js';
 	import { Github, Mail, ExternalLink, MapPin, Building2, AlertCircle, Layers, Folder, ArrowDownNarrowWide } from '@lucide/svelte';
-	import { _, locale } from 'svelte-i18n';
 
 	let { data } = $props();
 
@@ -31,19 +31,17 @@
 	);
 
 	const experiences = $derived.by(() => {
-		if (!$locale) return [];
-		
 		return [
 			{
 				organization: '경북소프트웨어마이스터고등학교',
 				position: '재학생',
-				period: `2026 - ${$_('home.sections.experiences.current')}`,
+				period: `2026 - ${m.home_sections_experiences_current()}`,
 				description: '현재 재학 중인 학교입니다.',
 				iconUrl: 'icons/gbsw.webp'
 			},
 			{
 				organization: 'LabyMod',
-				position: `${$_('home.sections.experiences.positions.pluginDeveloper')}, ${$_('home.sections.experiences.positions.translator')}`,
+				position: `${m.home_sections_experiences_positions_plugin_developer()}, ${m.home_sections_experiences_positions_translator()}`,
 				period: '2023 - 2025',
 				description: '약 4개의 개인 플러그인을 개발하고 배포했고, 1개의 공식 플러그인에 참여했습니다. 공식 한국어 번역도 담당했습니다.',
 				iconUrl: 'icons/labymod.png'
@@ -53,7 +51,7 @@
 </script>
 
 <svelte:head>
-	<title>{$_('home.title')}</title>
+	<title>{m.home_title()}</title>
 </svelte:head>
 
 <!-- Hero -->
@@ -62,20 +60,20 @@
 		<!-- Intro -->
 		<div class="space-y-2">
 			<h1 class="text-3xl md:text-5xl font-bold leading-tight">
-				{$_('home.hero.greeting')}<br />
-				<span class="text-green-600">{$_('home.hero.nameRole')}</span>{$_('home.hero.introSuffix')}
+				{m.home_hero_greeting()}<br />
+				<span class="text-green-600">{m.home_hero_name_role()}</span>{m.home_hero_intro_suffix()}
 			</h1>
 			<p class="text-lg max-w-2xl leading-relaxed">
-				{$_('home.hero.description')}
+				{m.home_hero_description()}
 			</p>
 			<div class="flex flex-wrap gap-4 text-sm text-muted-foreground">
 				<div class="flex items-center gap-1.5">
 					<MapPin class="h-4 w-4" />
-					<span>{$_('home.hero.location')}</span>
+					<span>{m.home_hero_location()}</span>
 				</div>
 				<div class="flex items-center gap-1.5">
 					<Building2 class="h-4 w-4" />
-					<span>{$_('home.hero.school')}</span>
+					<span>{m.home_hero_school()}</span>
 				</div>
 			</div>
 		</div>
@@ -91,7 +89,7 @@
 				hello@hchu.me
 			</Button>
 			<Button href={resolve('/blog')} variant="default" class="gap-2">
-				{$_('home.hero.blogButton')}
+				{m.home_hero_blog_button()}
 				<ExternalLink class="h-4 w-4" />
 			</Button>
 		</div>
@@ -104,7 +102,7 @@
 		<div class="flex items-start gap-3 p-4 rounded-lg border border-destructive/20 bg-destructive/10 text-destructive">
 			<AlertCircle class="h-5 w-5 mt-0.5 shrink-0" />
 			<div>
-				<p class="font-medium">{$_('home.error.title')}</p>
+				<p class="font-medium">{m.home_error_title()}</p>
 				<p class="text-sm mt-1">{data.error}</p>
 			</div>
 		</div>
@@ -117,7 +115,7 @@
 		<div class="flex items-center gap-2 mb-6">
 			<Layers class="h-5 w-5 text-muted-foreground" />
 			<h2 class="text-sm font-medium text-muted-foreground tracking-wide uppercase">
-				{$_('home.sections.techStack')}
+				{m.home_sections_tech_stack()}
 			</h2>
 		</div>
 		<div class="overflow-x-auto pb-2">
@@ -128,7 +126,7 @@
 							<HoverCard.Trigger>
 								<Sheet.Trigger
 									class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-border/70 bg-card transition-all hover:border-primary/50 hover:bg-accent/40 hover:cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-									aria-label={$_('home.tech.detailsAria', { values: { name: tech.name } })}
+									aria-label={m.home_tech_details_aria({ name: tech.name })}
 								>
 									{#if tech.icon_url}
 										<img src={tech.icon_url} alt={tech.name} class="h-7 w-7 object-contain" loading="lazy" />
@@ -153,7 +151,7 @@
 									<div class="space-y-1">
 										<p class="font-semibold leading-none">{tech.name}</p>
 										<p class="text-sm text-muted-foreground">
-											{$_('home.tech.usedInProjects', { values: { count: tech.projects.length } })}
+											{m.home_tech_used_in_projects({ count: tech.projects.length })}
 										</p>
 									</div>
 								</div>
@@ -175,7 +173,7 @@
 									<div class="space-y-1">
 										<Sheet.Title>{tech.name}</Sheet.Title>
 										<Sheet.Description>
-											{$_('home.tech.projectsUsingTech', { values: { count: tech.projects.length } })}
+											{m.home_tech_projects_using_tech({ count: tech.projects.length })}
 										</Sheet.Description>
 									</div>
 								</div>
@@ -190,7 +188,7 @@
 										/>
 									{/each}
 								{:else}
-									<p class="text-sm text-muted-foreground">{$_('home.tech.noLinkedProjects')}</p>
+									<p class="text-sm text-muted-foreground">{m.home_tech_no_linked_projects()}</p>
 								{/if}
 							</div>
 						</Sheet.Content>
@@ -206,7 +204,7 @@
 	<div class="flex items-center gap-2 mb-6">
 		<ArrowDownNarrowWide class="h-5 w-5 text-muted-foreground" />
 		<h2 class="text-sm font-medium text-muted-foreground tracking-wide uppercase">
-			{$_('home.sections.experiences.title')}
+			{m.home_sections_experiences_title()}
 		</h2>
 	</div>
 	<div class="space-y-4">
@@ -222,7 +220,7 @@
 		<div class="flex items-center gap-2 mb-6">
 			<Folder class="h-5 w-5 text-muted-foreground" />
 			<h2 class="text-sm font-medium text-muted-foreground tracking-wide uppercase">
-				{$_('home.sections.projects')}
+				{m.home_sections_projects()}
 			</h2>
 		</div>
 		<div class="grid gap-4 md:grid-cols-2">
@@ -237,11 +235,11 @@
 		<div class="flex items-center gap-2 mb-6">
 			<Folder class="h-5 w-5 text-muted-foreground" />
 			<h2 class="text-sm font-medium text-muted-foreground tracking-wide uppercase">
-				{$_('home.sections.projects')}
+				{m.home_sections_projects()}
 			</h2>
 		</div>
 		<div class="p-8 text-center border border-dashed border-border rounded-lg">
-			<p class="text-muted-foreground">{$_('home.empty.noProjects')}</p>
+			<p class="text-muted-foreground">{m.home_empty_no_projects()}</p>
 		</div>
 	</section>
 {/if}

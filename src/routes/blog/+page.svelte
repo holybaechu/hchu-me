@@ -2,31 +2,31 @@
 	import { ArrowLeft } from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button';
 	import { resolve } from '$app/paths';
-	import { _ } from 'svelte-i18n';
+	import * as m from '$lib/paraglide/messages.js';
 
 	let { data } = $props();
 </script>
 
 <svelte:head>
-	<title>{$_('blog.metaTitle')}</title>
+	<title>{m.blog_meta_title()}</title>
 </svelte:head>
 
 <div class="py-6">
 	<Button href="/" variant="ghost" class="gap-2">
 		<ArrowLeft class="h-4 w-4" />
-		{$_('blog.back')}
+		{m.blog_back()}
 	</Button>
 </div>
 
 <section class="space-y-6 pb-8">
 	<div class="space-y-2">
-		<h1 class="text-3xl font-bold md:text-4xl">{$_('blog.title')}</h1>
+		<h1 class="text-3xl font-bold md:text-4xl">{m.blog_title()}</h1>
 	</div>
 
 	{#if data.error}
 		<p class="text-sm text-destructive">{data.error}</p>
 	{:else if data.blogs.length === 0}
-		<p class="text-sm text-muted-foreground">{$_('blog.empty')}</p>
+		<p class="text-sm text-muted-foreground">{m.blog_empty()}</p>
 	{:else}
 		<div class="flex flex-col gap-4">
 			{#each data.blogs as blog (blog.id)}

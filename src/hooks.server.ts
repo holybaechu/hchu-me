@@ -1,13 +1,7 @@
+import { getTextDirection } from '$lib/paraglide/runtime';
+import { paraglideMiddleware } from '$lib/paraglide/server';
 import { syncAll } from '$lib';
-import '$lib/i18n';
 import type { Handle } from '@sveltejs/kit';
-import { locale } from 'svelte-i18n';
-
-export const handle: Handle = async ({ event, resolve }) => {
-	const lang = event.request.headers.get('accept-language')?.split(',')[0]?.split('-')[0];
-	locale.set(lang || 'ko');
-	return resolve(event);
-};
 
 export const scheduled = async (_event: ScheduledEvent, env: Env, ctx: ExecutionContext) => {
 	console.log('Starting scheduled sync...');
@@ -22,3 +16,17 @@ export const scheduled = async (_event: ScheduledEvent, env: Env, ctx: Execution
 			})
 	);
 };
+
+const handleParaglide: Handle = ({ event, resolve }) =>
+	paraglideMiddleware(event.request, ({ request, locale }) => {
+		event.request = request;
+
+		return resolve(event, {
+			transformPageChunk: ({ html }) =>
+				html
+					.replace('%paraglide.lang%', locale)
+					.replace('%paraglide.dir%', getTextDirection(locale))
+		});
+	});
+
+export const handle = handleParaglide;

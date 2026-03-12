@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { ArrowLeft, ExternalLink, Folder, Github } from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button';
+	import * as m from '$lib/paraglide/messages.js';
 	import { tick } from 'svelte';
 	import mermaid from 'mermaid';
 	import { mode } from 'mode-watcher';
-	import { _ } from 'svelte-i18n';
 
 	let { data } = $props();
 
@@ -50,7 +50,7 @@
 <div class="py-6">
 	<Button href="/" variant="ghost" class="gap-2">
 		<ArrowLeft class="h-4 w-4" />
-		{$_('project.back')}
+		{m.project_back()}
 	</Button>
 </div>
 
@@ -58,7 +58,7 @@
 	<div class="space-y-4">
 		<div class="flex items-center gap-2 text-sm text-muted-foreground">
 			<Folder class="h-4 w-4" />
-			<span>{$_('project.title')}</span>
+			<span>{m.project_title()}</span>
 		</div>
 		<div class="flex flex-wrap items-start justify-between gap-3">
 			<h1 class="text-3xl font-bold md:text-4xl">{data.project.title}</h1>
@@ -70,8 +70,8 @@
 							target="_blank"
 							rel="noopener noreferrer"
 							variant="outline"
-							aria-label={$_('project.actions.openGithub')}
-							title={$_('project.actions.github')}
+							aria-label={m.project_actions_open_github()}
+							title={m.project_actions_github()}
 						>
 							<Github class="h-3.5 w-3.5" />
 						</Button>
@@ -82,8 +82,8 @@
 							target="_blank"
 							rel="noopener noreferrer"
 							variant="outline"
-							aria-label={$_('project.actions.openWebsite')}
-							title={$_('project.actions.website')}
+							aria-label={m.project_actions_open_website()}
+							title={m.project_actions_website()}
 						>
 							<ExternalLink class="h-3.5 w-3.5" />
 						</Button>
