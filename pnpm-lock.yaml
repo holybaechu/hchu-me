@@ -28,7 +28,7 @@ importers:
         version: 0.577.0(svelte@5.53.10)
       '@notionhq/client':
         specifier: ^5.11.1
-        version: 5.11.1
+        version: 5.12.0
       '@sveltejs/adapter-cloudflare':
         specifier: ^7.2.6
         version: 7.2.8(@sveltejs/kit@2.53.4(@sveltejs/vite-plugin-svelte@6.2.4(svelte@5.53.10)(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(lightningcss@1.31.1)))(svelte@5.53.10)(typescript@5.9.3)(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(lightningcss@1.31.1)))(wrangler@4.71.0(@cloudflare/workers-types@4.20260312.1))
@@ -934,8 +934,8 @@ packages:
   '@mermaid-js/parser@1.0.1':
     resolution: {integrity: sha512-opmV19kN1JsK0T6HhhokHpcVkqKpF+x2pPDKKM2ThHtZAB5F4PROopk0amuVYK5qMrIA4erzpNm8gmPNJgMDxQ==}
 
-  '@notionhq/client@5.11.1':
-    resolution: {integrity: sha512-393XUAb4706eWKQx1xxg/tdn/rTY6+qj3PxTGyTr03D7ydO6e7B7tYyidxJCbKzNSSCVTUAth/bLoKNhm0VoUQ==}
+  '@notionhq/client@5.12.0':
+    resolution: {integrity: sha512-yLdw1saMUx4lmwMXOk72QK/N0wuw9x0JuOAuAX+q2Z8IEZzB5di6SEKL6a8eNh5cy3RLKdeXaXJFF4NF2LwXDg==}
     engines: {node: '>=18'}
 
   '@polka/url@1.0.0-next.29':
@@ -3385,7 +3385,7 @@ snapshots:
     dependencies:
       langium: 4.2.1
 
-  '@notionhq/client@5.11.1': {}
+  '@notionhq/client@5.12.0': {}
 
   '@polka/url@1.0.0-next.29': {}
 
