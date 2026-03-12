@@ -13,7 +13,7 @@
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
 		"gen": "wrangler types",
-		"deploy": "pnpm run build && wrangler deploy",
+		"deploy": "wrangler deploy",
 		"cf-typegen": "wrangler types src/worker-configuration.d.ts",
 		"db:generate": "drizzle-kit generate",
 		"db:migrate:local": "wrangler d1 migrations apply hchu-me --local",

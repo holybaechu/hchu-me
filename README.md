@@ -25,9 +25,10 @@ pnpm dev
 pnpm preview
 ```
 
-### 4) 배포
+### 4) 빌드/배포
 
 ```sh
+pnpm build
 pnpm deploy
 ```
 
