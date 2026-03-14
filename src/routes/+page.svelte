@@ -34,7 +34,7 @@
 		return [
 			{
 				organization: '경북소프트웨어마이스터고등학교',
-				position: '재학생',
+				position: m.home_sections_experiences_positions_student(),
 				period: `2026 - ${m.home_sections_experiences_current()}`,
 				description: '현재 재학 중인 학교입니다.',
 				iconUrl: 'icons/gbsw.webp'
@@ -61,7 +61,7 @@
 		<div class="space-y-2">
 			<h1 class="text-3xl md:text-5xl font-bold leading-tight">
 				{m.home_hero_greeting()}<br />
-				<span class="text-green-600">{m.home_hero_name_role()}</span>{m.home_hero_intro_suffix()}
+				<span class="bg-linear-to-r from-blue-300 to-green-600 bg-clip-text text-transparent">{m.home_hero_name_role()}</span>{m.home_hero_intro_suffix()}
 			</h1>
 			<p class="text-lg max-w-2xl leading-relaxed">
 				{m.home_hero_description()}
@@ -115,7 +115,7 @@
 		<div class="flex items-center gap-2 mb-6">
 			<Layers class="h-5 w-5 text-muted-foreground" />
 			<h2 class="text-sm font-medium text-muted-foreground tracking-wide uppercase">
-				{m.home_sections_tech_stack()}
+				{m.home_sections_techs()}
 			</h2>
 		</div>
 		<div class="overflow-x-auto pb-2">
