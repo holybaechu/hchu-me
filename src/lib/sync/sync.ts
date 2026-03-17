@@ -35,7 +35,7 @@ export async function syncProject(
 	let content: string;
 	if (
 		!lastSyncTime ||
-		new Date(projectData.lastEditedTime) > new Date(lastSyncTime)
+		new Date(projectData.lastEditedTime) >= new Date(lastSyncTime)
 	) {
 		content = (await notion.pages.retrieveMarkdown({ page_id: page.id })).markdown;
 	} else {
@@ -47,7 +47,7 @@ export async function syncProject(
 		content
 	};
 
-	const rewriteRelations = !lastSyncTime || new Date(projectData.lastEditedTime) > new Date(lastSyncTime);
+	const rewriteRelations = !lastSyncTime || new Date(projectData.lastEditedTime) >= new Date(lastSyncTime);
 	await upsertProject(db, project, { rewriteRelations });
 
 	if (rewriteRelations) {
@@ -69,7 +69,7 @@ export async function syncBlog(
 	let content: string;
 	if (
 		!lastSyncTime ||
-		new Date(blogData.lastEditedTime) > new Date(lastSyncTime)
+		new Date(blogData.lastEditedTime) >= new Date(lastSyncTime)
 	) {
 		content = (await notion.pages.retrieveMarkdown({ page_id: page.id })).markdown;
 	} else {
