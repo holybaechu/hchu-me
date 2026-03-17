@@ -33,13 +33,15 @@ export async function syncProject(
 	if (!projectData) return { projectData: null };
 
 	let content: string;
-	if (
-		!lastSyncTime ||
-		new Date(projectData.lastEditedTime) >= new Date(lastSyncTime)
-	) {
+	const shouldFetchFreshContent =
+		!lastSyncTime || new Date(projectData.lastEditedTime) >= new Date(lastSyncTime);
+	if (shouldFetchFreshContent) {
 		content = (await notion.pages.retrieveMarkdown({ page_id: page.id })).markdown;
 	} else {
 		content = await getProjectContent(db, page.id);
+		if (content === '') {
+			content = (await notion.pages.retrieveMarkdown({ page_id: page.id })).markdown;
+		}
 	}
 
 	const project: ProjectWithContent = {
@@ -67,10 +69,9 @@ export async function syncBlog(
 	if (!blogData) return { blogData: null };
 
 	let content: string;
-	if (
-		!lastSyncTime ||
-		new Date(blogData.lastEditedTime) >= new Date(lastSyncTime)
-	) {
+	const shouldFetchFreshContent =
+		!lastSyncTime || new Date(blogData.lastEditedTime) >= new Date(lastSyncTime);
+	if (shouldFetchFreshContent) {
 		content = (await notion.pages.retrieveMarkdown({ page_id: page.id })).markdown;
 	} else {
 		content = await getBlogContent(db, page.id);
@@ -95,6 +96,7 @@ export async function syncAll(env: App.Platform['env']) {
 		DB
 	} = env;
 
+	const runStartedAt = new Date().toISOString();
 	const lastSyncTime = await getLastSyncTime(DB);
 
 	const notion = new NotionClient({
@@ -113,12 +115,23 @@ export async function syncAll(env: App.Platform['env']) {
 	});
 	const notionProjectIds = new Set<string>();
 	let syncedProjectCount = 0;
+	let failedProjectCount = 0;
+	const projectErrors: { id: string; message: string }[] = [];
 
 	for (const page of projectPages) {
 		notionProjectIds.add(page.id);
-		const { projectData } = await syncProject(notion, DB, page, techs, lastSyncTime);
-		if (projectData) {
-			syncedProjectCount++;
+		try {
+			const { projectData } = await syncProject(notion, DB, page, techs, lastSyncTime);
+			if (projectData) {
+				syncedProjectCount++;
+			}
+		} catch (error) {
+			failedProjectCount++;
+			projectErrors.push({
+				id: page.id,
+				message: error instanceof Error ? error.message : String(error)
+			});
+			console.error(`Project sync failed for page ${page.id}:`, error);
 		}
 	}
 
@@ -128,12 +141,23 @@ export async function syncAll(env: App.Platform['env']) {
 	});
 	const notionBlogIds = new Set<string>();
 	let syncedBlogCount = 0;
+	let failedBlogCount = 0;
+	const blogErrors: { id: string; message: string }[] = [];
 
 	for (const page of blogPages) {
 		notionBlogIds.add(page.id);
-		const { blogData } = await syncBlog(notion, DB, page, lastSyncTime);
-		if (blogData) {
-			syncedBlogCount++;
+		try {
+			const { blogData } = await syncBlog(notion, DB, page, lastSyncTime);
+			if (blogData) {
+				syncedBlogCount++;
+			}
+		} catch (error) {
+			failedBlogCount++;
+			blogErrors.push({
+				id: page.id,
+				message: error instanceof Error ? error.message : String(error)
+			});
+			console.error(`Blog sync failed for page ${page.id}:`, error);
 		}
 	}
 
@@ -141,19 +165,24 @@ export async function syncAll(env: App.Platform['env']) {
 	const deletedTechCount = await cleanupDeletedTechs(DB, notionTechIds);
 	const deletedBlogCount = await cleanupDeletedBlogs(DB, notionBlogIds);
 
-	const now = new Date().toISOString();
-	await updateLastSyncTime(DB, now);
+	await updateLastSyncTime(DB, runStartedAt);
 
 	return {
 		success: true,
 		synced_projects: syncedProjectCount,
+		failed_projects: failedProjectCount,
 		deleted_projects: deletedProjectCount,
 		synced_blogs: syncedBlogCount,
+		failed_blogs: failedBlogCount,
 		deleted_blogs: deletedBlogCount,
 		synced_techs: techs.size,
 		deleted_techs: deletedTechCount,
 		last_sync: lastSyncTime,
-		new_sync: now
+		new_sync: runStartedAt,
+		errors: {
+			projects: projectErrors,
+			blogs: blogErrors
+		}
 	};
 }
 
