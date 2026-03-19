@@ -153,33 +153,16 @@
 .markdown-code-copy-control {
   display: flex;
   align-items: center;
+  margin-right: 0.5rem;
 }
 
 .markdown-code-copy-button {
-  margin-right: 0.75rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  border-radius: calc(var(--radius) - 2px);
-  border: 1px solid color-mix(in oklch, var(--color-border) 70%, transparent);
-  background-color: transparent;
-  padding: 0;
   color: var(--color-muted-foreground);
-  transition: color var(--default-transition-duration) var(--default-transition-timing-function), background-color var(--default-transition-duration) var(--default-transition-timing-function), border-color var(--default-transition-duration) var(--default-transition-timing-function);
 }
 
 .markdown-code-copy-icon {
   width: 1rem;
   height: 1rem;
-}
-
-.markdown-code-copy-button:hover {
-  cursor: pointer;
-  border-color: color-mix(in oklch, var(--color-border) 100%, transparent);
-  background-color: color-mix(in oklch, var(--color-background) 35%, transparent);
-  color: var(--color-foreground);
 }
 
 .markdown-code-copy-button[data-copied='true'] {

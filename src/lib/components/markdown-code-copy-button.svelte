@@ -2,6 +2,7 @@
 	import Copy from '@lucide/svelte/icons/copy';
 	import CopyCheck from '@lucide/svelte/icons/copy-check';
 	import { onDestroy } from 'svelte';
+	import { buttonVariants } from '$lib/components/ui/button';
 	import * as Tooltip from '$lib/components/ui/tooltip';
 	import * as m from '$lib/paraglide/messages.js';
 
@@ -13,6 +14,9 @@
 	let resetTimer = $state<number | null>(null);
 
 	const label = $derived(copied ? m.markdown_code_copied() : m.markdown_code_copy());
+	const buttonClass = $derived(
+		`${buttonVariants({ variant: 'ghost', size: 'icon-sm' })} markdown-code-copy-button`
+	);
 
 	function getCodeContent(): string {
 		const shell = host.closest('.markdown-code-shell');
@@ -53,7 +57,7 @@
 <Tooltip.Root bind:open>
 	<Tooltip.Trigger
 		type="button"
-		class="markdown-code-copy-button"
+		class={buttonClass}
 		aria-label={label}
 		title={label}
 		data-copied={copied ? 'true' : 'false'}
