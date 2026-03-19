@@ -38,7 +38,7 @@
 <div class="mx-auto w-full max-w-7xl px-4">
 	<header class="flex w-full items-center justify-between py-5">
 		<div class="flex gap-1">
-			<Button href="/" variant="ghost" class="font-bold bg-linear-to-r from-blue-300 to-green-600 bg-clip-text text-transparent">hchu.me</Button>
+			<Button href="/" variant="ghost" class="font-bold bg-linear-to-r from-blue-300 to-green-600 bg-clip-text text-transparent">{m.site_title()}</Button>
 			<Button href="/blog" variant="ghost">{m.layout_nav_blog()}</Button>
 		</div>
 

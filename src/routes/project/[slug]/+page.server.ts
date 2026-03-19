@@ -1,9 +1,9 @@
 import type { PageServerLoad } from './$types';
 import { error } from '@sveltejs/kit';
-import { marked } from 'marked';
 import { eq } from 'drizzle-orm';
 import { getDb } from '$lib/server/db/client';
 import { projectTechs, projects, techs } from '$lib/server/db/schema';
+import { renderMarkdown } from '$lib/server/markdown';
 
 interface LoadResult {
 	project: {
@@ -47,10 +47,7 @@ export const load: PageServerLoad = async ({ params, platform }) => {
 			throw error(404, 'Project not found.');
 		}
 
-		const renderedContent = await marked.parse(project.content || '', {
-			gfm: true,
-			breaks: true
-		});
+		const renderedContent = await renderMarkdown(project.content || '');
 		const projectTechRows = await db
 			.select({
 				name: techs.name,

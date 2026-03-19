@@ -8,7 +8,7 @@
 </script>
 
 <svelte:head>
-	<title>{m.blog_meta_title()}</title>
+	<title>{`${m.blog_title()} | ${m.site_title()}`}</title>
 </svelte:head>
 
 <div class="py-6">

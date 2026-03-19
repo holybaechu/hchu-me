@@ -1,9 +1,9 @@
 import type { PageServerLoad } from './$types';
 import { error } from '@sveltejs/kit';
-import { marked } from 'marked';
 import { eq } from 'drizzle-orm';
 import { getDb } from '$lib/server/db/client';
 import { blogs } from '$lib/server/db/schema';
+import { renderMarkdown } from '$lib/server/markdown';
 
 interface LoadResult {
 	blog: {
@@ -43,10 +43,7 @@ export const load: PageServerLoad = async ({ params, platform }) => {
 			throw error(404, 'Blog not found.');
 		}
 
-		const renderedContent = await marked.parse(blog.content || '', {
-			gfm: true,
-			breaks: true
-		});
+		const renderedContent = await renderMarkdown(blog.content || '');
 
 		return {
 			blog: {

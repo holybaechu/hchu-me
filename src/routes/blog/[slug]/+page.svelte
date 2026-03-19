@@ -1,20 +1,28 @@
 <script lang="ts">
 	import { ArrowLeft, FileText } from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button';
+	import { setupMarkdownCodeInteractions } from '$lib/client/markdown-code';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let { data } = $props();
+	let contentRoot = $state<HTMLElement | null>(null);
+
+	$effect(() => {
+		if (!contentRoot) return;
+
+		return setupMarkdownCodeInteractions(contentRoot);
+	});
 </script>
 
 <svelte:head>
-	<title>{data.blog.title} | hchu.me</title>
+	<title>{`${data.blog.title} | ${m.site_title()}`}</title>
 	<meta name="description" content={data.blog.description || data.blog.title} />
 </svelte:head>
 
 <div class="py-6">
 	<Button href="/blog" variant="ghost" class="gap-2">
 		<ArrowLeft class="h-4 w-4" />
-		{m.blog_list()}
+		{m.blog_back_to_list()}
 	</Button>
 </div>
 
@@ -33,7 +41,7 @@
 	</div>
 </header>
 
-<article class="prose max-w-none py-8 prose-neutral dark:prose-invert">
+<article bind:this={contentRoot} class="prose max-w-none py-8 prose-neutral dark:prose-invert">
 	<!-- eslint-disable svelte/no-at-html-tags -->
 	{@html data.blog.content}
 	<!-- eslint-enable -->

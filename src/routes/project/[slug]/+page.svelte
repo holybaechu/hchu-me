@@ -1,12 +1,20 @@
 <script lang="ts">
 	import { ArrowLeft, ExternalLink, Folder, Github } from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button';
+	import { setupMarkdownCodeInteractions } from '$lib/client/markdown-code';
 	import * as m from '$lib/paraglide/messages.js';
 	import { tick } from 'svelte';
 	import mermaid from 'mermaid';
 	import { mode } from 'mode-watcher';
 
 	let { data } = $props();
+	let contentRoot = $state<HTMLElement | null>(null);
+
+	$effect(() => {
+		if (!contentRoot) return;
+
+		return setupMarkdownCodeInteractions(contentRoot);
+	});
 
 	$effect(() => {
         const currentMode = mode.current === 'dark' ? 'dark' : 'default';
@@ -43,7 +51,7 @@
 </script>
 
 <svelte:head>
-	<title>{data.project.title} | hchu.me</title>
+	<title>{`${data.project.title} | ${m.site_title()}`}</title>
 	<meta name="description" content={data.project.description || data.project.title} />
 </svelte:head>
 
@@ -119,7 +127,7 @@
 	</div>
 </header>
 
-<article class="prose max-w-none py-8 prose-neutral dark:prose-invert">
+<article bind:this={contentRoot} class="prose max-w-none py-8 prose-neutral dark:prose-invert">
 	<!-- eslint-disable svelte/no-at-html-tags -->
 	{@html data.project.content}
 	<!-- eslint-enable -->

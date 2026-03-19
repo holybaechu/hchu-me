@@ -124,6 +124,198 @@
   }
 }
 
+.markdown-code-shell {
+  margin-block: 1.5rem;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  border: 1px solid color-mix(in oklch, var(--color-border) 70%, transparent);
+  background-color: var(--color-card);
+  box-shadow: 0 1px 2px 0 color-mix(in oklch, var(--color-foreground) 8%, transparent);
+}
+
+.markdown-code-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid color-mix(in oklch, var(--color-border) 70%, transparent);
+  background-color: color-mix(in oklch, var(--color-secondary) 70%, transparent);
+}
+
+.markdown-code-label {
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted-foreground);
+}
+
+.markdown-code-copy-control {
+  display: flex;
+  align-items: center;
+}
+
+.markdown-code-copy-button {
+  margin-right: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: calc(var(--radius) - 2px);
+  border: 1px solid color-mix(in oklch, var(--color-border) 70%, transparent);
+  background-color: transparent;
+  padding: 0;
+  color: var(--color-muted-foreground);
+  transition: color var(--default-transition-duration) var(--default-transition-timing-function), background-color var(--default-transition-duration) var(--default-transition-timing-function), border-color var(--default-transition-duration) var(--default-transition-timing-function);
+}
+
+.markdown-code-copy-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.markdown-code-copy-button:hover {
+  cursor: pointer;
+  border-color: color-mix(in oklch, var(--color-border) 100%, transparent);
+  background-color: color-mix(in oklch, var(--color-background) 35%, transparent);
+  color: var(--color-foreground);
+}
+
+.markdown-code-copy-button[data-copied='true'] {
+  color: var(--color-green-600);
+}
+
+.markdown-code-block {
+  margin: 0;
+  overflow-x: auto;
+  background: transparent;
+  padding: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+
+.markdown-code-block code {
+  display: block;
+  min-width: max-content;
+  background: transparent;
+  padding: 0;
+  font-size: 0.95em;
+  color: var(--color-foreground);
+}
+
+.markdown-code-block .hljs-comment,
+.markdown-code-block .hljs-quote {
+  color: color-mix(in oklch, var(--color-muted-foreground) 78%, transparent);
+}
+
+.markdown-code-block .hljs-string,
+.markdown-code-block .hljs-symbol,
+.markdown-code-block .hljs-regexp {
+  color: oklch(0.58 0.14 160);
+}
+
+.markdown-code-block .hljs-keyword,
+.markdown-code-block .hljs-selector-tag,
+.markdown-code-block .hljs-subst {
+  color: oklch(0.58 0.2 285);
+}
+
+.markdown-code-block .hljs-title.function_,
+.markdown-code-block .hljs-function .hljs-title,
+.markdown-code-block .hljs-title.class_ {
+  color: oklch(0.62 0.17 245);
+}
+
+.markdown-code-block .hljs-number,
+.markdown-code-block .hljs-attr {
+  color: oklch(0.68 0.16 65);
+}
+
+.markdown-code-block .hljs-literal,
+.markdown-code-block .hljs-built_in {
+  color: oklch(0.65 0.18 30);
+}
+
+.markdown-code-block .hljs-tag,
+.markdown-code-block .hljs-name {
+  color: oklch(0.63 0.19 20);
+}
+
+.markdown-code-block .hljs-attr,
+.markdown-code-block .hljs-attribute,
+.markdown-code-block .hljs-selector-id,
+.markdown-code-block .hljs-selector-class {
+  color: oklch(0.62 0.17 250);
+}
+
+.markdown-code-block .hljs-property,
+.markdown-code-block .hljs-params {
+  color: oklch(0.56 0.16 210);
+}
+
+.markdown-code-block .hljs-variable,
+.markdown-code-block .hljs-template-variable,
+.markdown-code-block .hljs-meta {
+  color: oklch(0.7 0.14 100);
+}
+
+.dark .markdown-code-block .hljs-comment,
+.dark .markdown-code-block .hljs-quote {
+  color: color-mix(in oklch, var(--color-muted-foreground) 92%, transparent);
+}
+
+.dark .markdown-code-block .hljs-string,
+.dark .markdown-code-block .hljs-symbol,
+.dark .markdown-code-block .hljs-regexp {
+  color: oklch(0.78 0.16 160);
+}
+
+.dark .markdown-code-block .hljs-keyword,
+.dark .markdown-code-block .hljs-selector-tag,
+.dark .markdown-code-block .hljs-subst {
+  color: oklch(0.78 0.2 300);
+}
+
+.dark .markdown-code-block .hljs-title.function_,
+.dark .markdown-code-block .hljs-function .hljs-title,
+.dark .markdown-code-block .hljs-title.class_ {
+  color: oklch(0.8 0.14 240);
+}
+
+.dark .markdown-code-block .hljs-number,
+.dark .markdown-code-block .hljs-attr {
+  color: oklch(0.82 0.14 75);
+}
+
+.dark .markdown-code-block .hljs-literal,
+.dark .markdown-code-block .hljs-built_in {
+  color: oklch(0.8 0.14 35);
+}
+
+.dark .markdown-code-block .hljs-tag,
+.dark .markdown-code-block .hljs-name {
+  color: oklch(0.8 0.18 30);
+}
+
+.dark .markdown-code-block .hljs-attr,
+.dark .markdown-code-block .hljs-attribute,
+.dark .markdown-code-block .hljs-selector-id,
+.dark .markdown-code-block .hljs-selector-class {
+  color: oklch(0.8 0.13 250);
+}
+
+.dark .markdown-code-block .hljs-property,
+.dark .markdown-code-block .hljs-params {
+  color: oklch(0.8 0.12 215);
+}
+
+.dark .markdown-code-block .hljs-variable,
+.dark .markdown-code-block .hljs-template-variable,
+.dark .markdown-code-block .hljs-meta {
+  color: oklch(0.86 0.12 110);
+}
+
 pre:has(.language-mermaid) {
-  @apply bg-transparent;
+  background-color: transparent;
 }

@@ -33,17 +33,17 @@
 	const experiences = $derived.by(() => {
 		return [
 			{
-				organization: '경북소프트웨어마이스터고등학교',
-				position: m.home_sections_experiences_positions_student(),
-				period: `2026 - ${m.home_sections_experiences_current()}`,
-				description: '현재 재학 중인 학교입니다.',
+				organization: m.home_experiences_gbsw_organization(),
+				position: m.home_experiences_gbsw_position(),
+				period: m.home_experiences_gbsw_period(),
+				description: m.home_experiences_gbsw_description(),
 				iconUrl: 'icons/gbsw.webp'
 			},
 			{
-				organization: 'LabyMod',
-				position: `${m.home_sections_experiences_positions_plugin_developer()}, ${m.home_sections_experiences_positions_translator()}`,
-				period: '2023 - 2025',
-				description: '약 4개의 개인 플러그인을 개발하고 배포했고, 1개의 공식 플러그인에 참여했습니다. 공식 한국어 번역도 담당했습니다.',
+				organization: m.home_experiences_labymod_organization(),
+				position: m.home_experiences_labymod_position(),
+				period: m.home_experiences_labymod_period(),
+				description: m.home_experiences_labymod_description(),
 				iconUrl: 'icons/labymod.png'
 			}
 		];
@@ -51,47 +51,59 @@
 </script>
 
 <svelte:head>
-	<title>{m.home_title()}</title>
+	<title>{m.site_title()}</title>
 </svelte:head>
 
 <!-- Hero -->
 <section class="py-6 md:py-14">
-	<div class="space-y-4">
-		<!-- Intro -->
-		<div class="space-y-2">
-			<h1 class="text-3xl md:text-5xl font-bold leading-tight">
-				{m.home_hero_greeting()}<br />
-				<span class="bg-linear-to-r from-blue-300 to-green-600 bg-clip-text text-transparent">{m.home_hero_name_role()}</span>{m.home_hero_intro_suffix()}
-			</h1>
-			<p class="text-lg max-w-2xl leading-relaxed">
-				{m.home_hero_description()}
-			</p>
-			<div class="flex flex-wrap gap-4 text-sm text-muted-foreground">
-				<div class="flex items-center gap-1.5">
-					<MapPin class="h-4 w-4" />
-					<span>{m.home_hero_location()}</span>
-				</div>
-				<div class="flex items-center gap-1.5">
-					<Building2 class="h-4 w-4" />
-					<span>{m.home_hero_school()}</span>
-				</div>
+	<div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between md:gap-10">
+		<div class="order-first flex justify-center md:order-last md:justify-end">
+			<div class="rounded-4xl bg-linear-to-br from-blue-300/25 via-background to-green-600/25 p-2 shadow-lg ring-1 ring-border/80">
+				<img
+					src="/profile.jpeg"
+					alt="holybaechu"
+					class="h-36 w-36 rounded-3xl object-cover md:h-48 md:w-48"
+				/>
 			</div>
 		</div>
 
-		<!-- Social Links -->
-		<div class="flex flex-wrap gap-3">
-			<Button href="https://github.com/holybaechu" target="_blank" rel="noopener noreferrer" variant="outline" class="gap-2">
-				<Github class="h-4 w-4" />
-				holybaechu
-			</Button>
-			<Button href="mailto:hello@hchu.me" variant="outline" class="gap-2">
-				<Mail class="h-4 w-4" />
-				hello@hchu.me
-			</Button>
-			<Button href={resolve('/blog')} variant="default" class="gap-2">
-				{m.home_hero_blog_button()}
-				<ExternalLink class="h-4 w-4" />
-			</Button>
+		<div class="space-y-4 text-center md:text-left">
+			<!-- Intro -->
+			<div class="space-y-3">
+				<h1 class="text-3xl md:text-5xl font-bold leading-tight">
+					{m.home_hero_greeting()}<br />
+					<span class="bg-linear-to-r from-blue-300 to-green-600 bg-clip-text text-transparent">{m.home_hero_name_role()}</span>{m.home_hero_intro_suffix()}
+				</h1>
+				<p class="mx-auto max-w-2xl text-lg leading-relaxed md:mx-0">
+					{m.home_hero_description()}
+				</p>
+				<div class="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground md:justify-start">
+					<div class="flex items-center gap-1.5">
+						<MapPin class="h-4 w-4" />
+						<span>{m.home_hero_location()}</span>
+					</div>
+					<div class="flex items-center gap-1.5">
+						<Building2 class="h-4 w-4" />
+						<span>{m.home_hero_school()}</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Social Links -->
+			<div class="flex flex-wrap justify-center gap-3 md:justify-start">
+				<Button href="https://github.com/holybaechu" target="_blank" rel="noopener noreferrer" variant="outline" class="gap-2">
+					<Github class="h-4 w-4" />
+					holybaechu
+				</Button>
+				<Button href="mailto:hello@hchu.me" variant="outline" class="gap-2">
+					<Mail class="h-4 w-4" />
+					hello@hchu.me
+				</Button>
+				<Button href={resolve('/blog')} variant="default" class="gap-2">
+					{m.home_hero_blog_button()}
+					<ExternalLink class="h-4 w-4" />
+				</Button>
+			</div>
 		</div>
 	</div>
 </section>
