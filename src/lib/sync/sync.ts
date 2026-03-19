@@ -22,6 +22,31 @@ import {
 	updateLastSyncTime
 } from './db';
 
+function hasContent(content: string | null | undefined): content is string {
+	return Boolean(content?.trim());
+}
+
+async function resolvePageContent(
+	notion: NotionClient,
+	pageId: string,
+	getStoredContent: () => Promise<string>,
+	shouldRefreshContent: boolean
+): Promise<string> {
+	const storedContent = await getStoredContent();
+
+	if (!shouldRefreshContent && hasContent(storedContent)) {
+		return storedContent;
+	}
+
+	const fetchedContent = (await notion.pages.retrieveMarkdown({ page_id: pageId })).markdown;
+
+	if (hasContent(fetchedContent)) {
+		return fetchedContent;
+	}
+
+	return storedContent;
+}
+
 export async function syncProject(
 	notion: NotionClient,
 	db: D1Database,
@@ -32,22 +57,21 @@ export async function syncProject(
 	const projectData = extractProjectData(page);
 	if (!projectData) return { projectData: null };
 
-	let content: string;
-	if (
-		!lastSyncTime ||
-		new Date(projectData.lastEditedTime) >= new Date(lastSyncTime)
-	) {
-		content = (await notion.pages.retrieveMarkdown({ page_id: page.id })).markdown;
-	} else {
-		content = await getProjectContent(db, page.id);
-	}
+	const shouldRefreshContent =
+		!lastSyncTime || new Date(projectData.lastEditedTime) >= new Date(lastSyncTime);
+	const content = await resolvePageContent(
+		notion,
+		page.id,
+		() => getProjectContent(db, page.id),
+		shouldRefreshContent
+	);
 
 	const project: ProjectWithContent = {
 		...projectData,
 		content
 	};
 
-	const rewriteRelations = !lastSyncTime || new Date(projectData.lastEditedTime) >= new Date(lastSyncTime);
+	const rewriteRelations = shouldRefreshContent;
 	await upsertProject(db, project, { rewriteRelations });
 
 	if (rewriteRelations) {
@@ -66,15 +90,14 @@ export async function syncBlog(
 	const blogData = extractBlogData(page);
 	if (!blogData) return { blogData: null };
 
-	let content: string;
-	if (
-		!lastSyncTime ||
-		new Date(blogData.lastEditedTime) >= new Date(lastSyncTime)
-	) {
-		content = (await notion.pages.retrieveMarkdown({ page_id: page.id })).markdown;
-	} else {
-		content = await getBlogContent(db, page.id);
-	}
+	const shouldRefreshContent =
+		!lastSyncTime || new Date(blogData.lastEditedTime) >= new Date(lastSyncTime);
+	const content = await resolvePageContent(
+		notion,
+		page.id,
+		() => getBlogContent(db, page.id),
+		shouldRefreshContent
+	);
 
 	const blog: BlogWithContent = {
 		...blogData,
