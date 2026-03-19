@@ -151,7 +151,7 @@
 							</HoverCard.Trigger>
 							<HoverCard.Content side="top" align="center" class="w-64">
 								<div class="flex items-start gap-3">
-									<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border/70 bg-card">
+									<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-card">
 										{#if tech.icon_url}
 											<img src={tech.icon_url} alt={tech.name} class="h-6 w-6 object-contain" loading="lazy" />
 										{:else}
