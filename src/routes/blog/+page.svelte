@@ -3,13 +3,15 @@
 	import { Button } from '$lib/components/ui/button';
 	import { resolve } from '$app/paths';
 	import * as m from '$lib/paraglide/messages.js';
+	import Seo from '$lib/components/seo.svelte';
 
 	let { data } = $props();
 </script>
 
-<svelte:head>
-	<title>{`${m.blog_title()} | ${m.site_title()}`}</title>
-</svelte:head>
+<Seo 
+	title={`${m.blog_title()} | ${m.site_title()}`}
+	description={m.blog_title()}
+/>
 
 <div class="py-6">
 	<Button href="/" variant="ghost" class="gap-2">

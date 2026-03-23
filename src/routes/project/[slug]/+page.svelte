@@ -6,6 +6,7 @@
 	import { tick } from 'svelte';
 	import mermaid from 'mermaid';
 	import { mode } from 'mode-watcher';
+	import Seo from '$lib/components/seo.svelte';
 
 	let { data } = $props();
 	let contentRoot = $state<HTMLElement | null>(null);
@@ -50,10 +51,11 @@
     });
 </script>
 
-<svelte:head>
-	<title>{`${data.project.title} | ${m.site_title()}`}</title>
-	<meta name="description" content={data.project.description || data.project.title} />
-</svelte:head>
+<Seo 
+	title={`${data.project.title} | ${m.site_title()}`}
+	description={data.project.description || data.project.title}
+	type="article"
+/>
 
 <div class="py-6">
 	<Button href="/" variant="ghost" class="gap-2">

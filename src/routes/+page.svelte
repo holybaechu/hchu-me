@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as HoverCard from '$lib/components/ui/hover-card';
 	import * as Sheet from '$lib/components/ui/sheet';
@@ -6,7 +6,8 @@
 	import Experience from '$lib/components/experience.svelte';
 	import { resolve } from '$app/paths';
 	import * as m from '$lib/paraglide/messages.js';
-	import { Github, Mail, ExternalLink, MapPin, Building2, AlertCircle, Layers, Folder, ArrowDownNarrowWide } from '@lucide/svelte';
+	import { Github, Mail, ExternalLink, MapPin, Building2, CircleAlert, Layers, Folder, ArrowDownNarrowWide } from '@lucide/svelte';
+	import Seo from '$lib/components/seo.svelte';
 
 	let { data } = $props();
 
@@ -50,9 +51,10 @@
 	});
 </script>
 
-<svelte:head>
-	<title>{m.site_title()}</title>
-</svelte:head>
+<Seo 
+	title={m.site_title()} 
+	description={m.home_hero_description()} 
+/>
 
 <!-- Hero -->
 <section class="py-6 md:py-14">
@@ -112,7 +114,7 @@
 	<!-- Error Message -->
 	<section class="py-8">
 		<div class="flex items-start gap-3 p-4 rounded-lg border border-destructive/20 bg-destructive/10 text-destructive">
-			<AlertCircle class="h-5 w-5 mt-0.5 shrink-0" />
+			<CircleAlert class="h-5 w-5 mt-0.5 shrink-0" />
 			<div>
 				<p class="font-medium">{m.home_error_title()}</p>
 				<p class="text-sm mt-1">{data.error}</p>

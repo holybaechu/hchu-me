@@ -3,6 +3,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import { setupMarkdownCodeInteractions } from '$lib/client/markdown-code';
 	import * as m from '$lib/paraglide/messages.js';
+	import Seo from '$lib/components/seo.svelte';
 
 	let { data } = $props();
 	let contentRoot = $state<HTMLElement | null>(null);
@@ -14,10 +15,11 @@
 	});
 </script>
 
-<svelte:head>
-	<title>{`${data.blog.title} | ${m.site_title()}`}</title>
-	<meta name="description" content={data.blog.description || data.blog.title} />
-</svelte:head>
+<Seo 
+	title={`${data.blog.title} | ${m.site_title()}`}
+	description={data.blog.description || data.blog.title}
+	type="article"
+/>
 
 <div class="py-6">
 	<Button href="/blog" variant="ghost" class="gap-2">
