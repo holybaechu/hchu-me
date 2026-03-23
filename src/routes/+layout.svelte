@@ -85,7 +85,7 @@
 		</div>
 	</header>
 
-	<div class="px-4 pb-20">{@render children()}</div>
+	<div class="px-4">{@render children()}</div>
 
 	<!-- Footer -->
 	<footer
