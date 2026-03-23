@@ -73,7 +73,7 @@
 				</DropdownMenuContent>
 			</DropdownMenu>
 
-			<Button onclick={toggleMode} variant="ghost" size="icon">
+			<Button onclick={toggleMode} variant="ghost" size="icon" aria-label="Toggle theme">
 				<Sun
 					class="h-full w-full scale-100 rotate-0 transition-all! dark:scale-0 dark:-rotate-90"
 				/>
@@ -85,7 +85,7 @@
 		</div>
 	</header>
 
-	<div class="px-4">{@render children()}</div>
+	<main class="px-4">{@render children()}</main>
 
 	<!-- Footer -->
 	<footer

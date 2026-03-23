@@ -29,8 +29,8 @@
 				<h3 class="text-base leading-tight font-semibold">{experience.organization}</h3>
 				<p class="text-sm font-medium text-muted-foreground">{experience.position}</p>
 			</div>
-			<p class="text-xs tracking-wide text-muted-foreground/90 uppercase">{experience.period}</p>
-			<p class="text-sm leading-relaxed text-foreground/90">{experience.description}</p>
+			<p class="text-xs tracking-wide text-muted-foreground uppercase">{experience.period}</p>
+			<p class="text-sm leading-relaxed text-foreground">{experience.description}</p>
 		</div>
 	</div>
 </article>
