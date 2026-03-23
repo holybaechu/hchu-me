@@ -7,7 +7,12 @@ import type {
 	TechLookupItem
 } from './types';
 import { NOTION_PROP_STATUS, NOTION_PROP_STATUS_DONE } from '..';
-import { extractBlogData, extractProjectData, fetchAllDataSourcePages, fetchTechNames } from './notion';
+import {
+	extractBlogData,
+	extractProjectData,
+	fetchAllDataSourcePages,
+	fetchTechNames
+} from './notion';
 import {
 	cleanupDeletedBlogs,
 	cleanupDeletedTechs,

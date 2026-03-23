@@ -76,7 +76,11 @@ function escapeHtml(value: string): string {
 
 function normalizeLanguage(language?: string | null): string | null {
 	if (!language) return null;
-	const normalized = language.trim().toLowerCase().split(/\s+/)[0]?.replace(/^language-/, '');
+	const normalized = language
+		.trim()
+		.toLowerCase()
+		.split(/\s+/)[0]
+		?.replace(/^language-/, '');
 	if (!normalized) return null;
 	return languageAliases[normalized] ?? normalized;
 }
@@ -99,10 +103,8 @@ function renderCodeBlock({ text, lang, escaped }: Tokens.Code): string {
 		return `<pre><code class="language-mermaid">${escapeHtml(text)}</code></pre>`;
 	}
 
-	const label = language ? languageLabels[language] ?? language.toUpperCase() : null;
-	const codeClass = language
-		? ` class="hljs language-${escapeHtml(language)}"`
-		: ' class="hljs"';
+	const label = language ? (languageLabels[language] ?? language.toUpperCase()) : null;
+	const codeClass = language ? ` class="hljs language-${escapeHtml(language)}"` : ' class="hljs"';
 	const content = (escaped ? text : escapeHtml(text)).replace(/\n$/, '');
 	const header = `
 		<div class="markdown-code-toolbar">

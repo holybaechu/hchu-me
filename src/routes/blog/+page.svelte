@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ArrowLeft } from '@lucide/svelte';
+	import { ArrowLeft, ChevronRight } from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button';
 	import { resolve } from '$app/paths';
 	import * as m from '$lib/paraglide/messages.js';
@@ -8,10 +8,7 @@
 	let { data } = $props();
 </script>
 
-<Seo 
-	title={`${m.blog_title()} | ${m.site_title()}`}
-	description={m.blog_title()}
-/>
+<Seo title={`${m.blog_title()} | ${m.site_title()}`} description={m.blog_title()} />
 
 <div class="py-6">
 	<Button href="/" variant="ghost" class="gap-2">
@@ -36,7 +33,14 @@
 					href={resolve(`/blog/${blog.slug}`)}
 					class="group block cursor-pointer rounded-lg border border-border bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-primary/20 hover:bg-accent/50"
 				>
-					<h2 class="text-lg font-semibold transition-colors group-hover:text-primary">{blog.title}</h2>
+					<div class="flex items-center justify-between gap-3">
+						<h2 class="text-lg font-semibold transition-colors group-hover:text-primary">
+							{blog.title}
+						</h2>
+						<ChevronRight
+							class="h-5 w-5 shrink-0 text-muted-foreground transition-all group-hover:translate-x-1 group-hover:text-primary"
+						/>
+					</div>
 					{#if blog.description}
 						<p class="mt-2 line-clamp-2 text-sm text-muted-foreground">{blog.description}</p>
 					{/if}

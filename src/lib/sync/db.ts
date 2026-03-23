@@ -103,10 +103,7 @@ export async function upsertProjectTechs(
 				set: { name: tech.name, iconUrl: tech.iconUrl }
 			});
 
-		await d
-			.insert(projectTechs)
-			.values({ projectId, techId: relation.id })
-			.onConflictDoNothing();
+		await d.insert(projectTechs).values({ projectId, techId: relation.id }).onConflictDoNothing();
 	}
 }
 

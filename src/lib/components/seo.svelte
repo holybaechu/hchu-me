@@ -6,7 +6,7 @@
 	let {
 		title = m.site_title(),
 		description = m.home_hero_description(),
-		type = 'website',
+		type = 'website'
 	} = $props<{
 		title?: string;
 		description?: string;

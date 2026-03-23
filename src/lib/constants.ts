@@ -1,4 +1,4 @@
-export const SITE_URL = "https://hchu.me";
+export const SITE_URL = 'https://hchu.me';
 
 export const NOTION_PROP_STATUS = '상태';
 export const NOTION_PROP_STATUS_DONE = '완료';

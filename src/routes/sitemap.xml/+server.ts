@@ -3,7 +3,6 @@ import { getDb } from '$lib/server/db/client';
 import { blogs, projects } from '$lib/server/db/schema';
 import type { RequestHandler } from './$types';
 
-
 export const GET: RequestHandler = async ({ platform }) => {
 	const d1 = platform?.env?.DB;
 

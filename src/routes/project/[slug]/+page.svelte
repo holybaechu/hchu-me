@@ -1,57 +1,14 @@
 <script lang="ts">
 	import { ArrowLeft, ExternalLink, Folder, Github } from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button';
-	import { setupMarkdownCodeInteractions } from '$lib/client/markdown-code';
 	import * as m from '$lib/paraglide/messages.js';
-	import { tick } from 'svelte';
-	import mermaid from 'mermaid';
-	import { mode } from 'mode-watcher';
 	import Seo from '$lib/components/seo.svelte';
+	import MarkdownViewer from '$lib/components/markdown-viewer.svelte';
 
 	let { data } = $props();
-	let contentRoot = $state<HTMLElement | null>(null);
-
-	$effect(() => {
-		if (!contentRoot) return;
-
-		return setupMarkdownCodeInteractions(contentRoot);
-	});
-
-	$effect(() => {
-        const currentMode = mode.current === 'dark' ? 'dark' : 'default';
-
-        
-        const renderMermaid = async () => {
-            await tick();
-            
-            mermaid.initialize({ 
-                startOnLoad: false, 
-                theme: currentMode,
-                themeVariables: {
-                    darkMode: mode.current === 'dark'
-                }
-            });
-
-            const nodes = document.querySelectorAll('.language-mermaid');
-            nodes.forEach(node => {
-                const originalText = node.getAttribute('data-original') || node.textContent || '';
-                if (!node.getAttribute('data-original')) {
-                    node.setAttribute('data-original', originalText);
-                }
-                node.innerHTML = originalText;
-                node.removeAttribute('data-processed');
-            });
-
-            if (nodes.length > 0) {
-                await mermaid.run({ nodes: Array.from(nodes) as HTMLElement[] });
-            }
-        };
-
-        renderMermaid();
-    });
 </script>
 
-<Seo 
+<Seo
 	title={`${data.project.title} | ${m.site_title()}`}
 	description={data.project.description || data.project.title}
 	type="article"
@@ -116,7 +73,7 @@
 							<img src={tech.icon_url} alt="" class="h-4 w-4 rounded-sm object-contain" />
 						{:else}
 							<span
-								class="inline-flex h-4 w-4 items-center justify-center rounded-sm bg-muted text-[10px] uppercase text-muted-foreground"
+								class="inline-flex h-4 w-4 items-center justify-center rounded-sm bg-muted text-[10px] text-muted-foreground uppercase"
 							>
 								{tech.name.slice(0, 1)}
 							</span>
@@ -129,8 +86,4 @@
 	</div>
 </header>
 
-<article bind:this={contentRoot} class="prose max-w-none py-8 prose-neutral dark:prose-invert">
-	<!-- eslint-disable svelte/no-at-html-tags -->
-	{@html data.project.content}
-	<!-- eslint-enable -->
-</article>
+<MarkdownViewer content={data.project.content} />

@@ -1,21 +1,14 @@
 <script lang="ts">
 	import { ArrowLeft, FileText } from '@lucide/svelte';
 	import { Button } from '$lib/components/ui/button';
-	import { setupMarkdownCodeInteractions } from '$lib/client/markdown-code';
 	import * as m from '$lib/paraglide/messages.js';
 	import Seo from '$lib/components/seo.svelte';
+	import MarkdownViewer from '$lib/components/markdown-viewer.svelte';
 
 	let { data } = $props();
-	let contentRoot = $state<HTMLElement | null>(null);
-
-	$effect(() => {
-		if (!contentRoot) return;
-
-		return setupMarkdownCodeInteractions(contentRoot);
-	});
 </script>
 
-<Seo 
+<Seo
 	title={`${data.blog.title} | ${m.site_title()}`}
 	description={data.blog.description || data.blog.title}
 	type="article"
@@ -43,8 +36,4 @@
 	</div>
 </header>
 
-<article bind:this={contentRoot} class="prose max-w-none py-8 prose-neutral dark:prose-invert">
-	<!-- eslint-disable svelte/no-at-html-tags -->
-	{@html data.blog.content}
-	<!-- eslint-enable -->
-</article>
+<MarkdownViewer content={data.blog.content} />

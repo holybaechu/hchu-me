@@ -2,6 +2,7 @@
 	import { ChevronRight, ExternalLink, Github } from '@lucide/svelte';
 	import { goto } from '$app/navigation';
 	import Button from '$lib/components/ui/button/button.svelte';
+	import * as Tooltip from '$lib/components/ui/tooltip';
 	import * as m from '$lib/paraglide/messages.js';
 	import { resolve } from '$app/paths';
 
@@ -16,16 +17,16 @@
 	let {
 		project,
 		href,
-		compact = false,
+		compact = false
 	}: {
 		project: ProjectCardData;
 		href: `/project/${string}`;
 		compact?: boolean;
 	} = $props();
-
-	const visibleTechCount = $derived(compact ? 3 : 4);
 	function isInteractiveTarget(target: EventTarget | null): boolean {
-		return target instanceof Element && Boolean(target.closest('a, button, input, select, textarea'));
+		return (
+			target instanceof Element && Boolean(target.closest('a, button, input, select, textarea'))
+		);
 	}
 
 	function navigateToDetail(event: MouseEvent | KeyboardEvent) {
@@ -57,29 +58,39 @@
 				{/if}
 				{#if project.techs.length > 0}
 					<div class="mt-2 flex flex-wrap gap-1.5">
-						{#each project.techs.slice(0, visibleTechCount) as tech (tech.name)}
-							<span
-								class="inline-flex items-center gap-1 rounded bg-secondary/50 px-1.5 py-0.5 text-[11px] text-secondary-foreground"
-							>
-								{#if tech.icon_url}
-									<img src={tech.icon_url} alt="" class="h-3 w-3 rounded-sm object-contain" />
-								{:else}
-									<span class="inline-flex h-3 w-3 items-center justify-center rounded-sm bg-muted text-[8px] uppercase text-muted-foreground">
-										{tech.name.slice(0, 1)}
+						{#each project.techs as tech (tech.name)}
+							<Tooltip.Root>
+								<Tooltip.Trigger>
+									<span
+										class="inline-flex items-center gap-1 rounded bg-secondary/50 px-1.5 py-0.5 text-[11px] text-secondary-foreground transition-colors hover:bg-secondary"
+									>
+										{#if tech.icon_url}
+											<img src={tech.icon_url} alt="" class="h-3 w-3 rounded-sm object-contain" />
+										{:else}
+											<span
+												class="inline-flex h-3 w-3 items-center justify-center rounded-sm bg-muted text-[8px] text-muted-foreground uppercase"
+											>
+												{tech.name.slice(0, 1)}
+											</span>
+										{/if}
+										{#if compact && tech.icon_url}
+											<span class="sr-only">{tech.name}</span>
+										{:else}
+											{tech.name}
+										{/if}
 									</span>
-								{/if}
-								{tech.name}
-							</span>
+								</Tooltip.Trigger>
+								<Tooltip.Content>
+									<p>{tech.name}</p>
+								</Tooltip.Content>
+							</Tooltip.Root>
 						{/each}
-						{#if project.techs.length > visibleTechCount}
-							<span class="rounded px-1.5 py-0.5 text-[11px] text-muted-foreground">
-								+{project.techs.length - visibleTechCount}
-							</span>
-						{/if}
 					</div>
 				{/if}
 			</div>
-			<ChevronRight class="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground transition-all group-hover:text-primary" />
+			<ChevronRight
+				class="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground transition-all group-hover:text-primary"
+			/>
 		</div>
 	</a>
 {:else}
@@ -97,7 +108,9 @@
 					<h3 class="truncate text-lg font-semibold transition-colors group-hover:text-primary">
 						{project.title}
 					</h3>
-					<ChevronRight class="h-5 w-5 shrink-0 text-muted-foreground transition-all group-hover:translate-x-1 group-hover:text-primary" />
+					<ChevronRight
+						class="h-5 w-5 shrink-0 text-muted-foreground transition-all group-hover:translate-x-1 group-hover:text-primary"
+					/>
 				</div>
 				{#if project.github_url || project.website_url}
 					<div class="flex shrink-0 flex-wrap items-center gap-1.5">
@@ -135,27 +148,29 @@
 			{/if}
 			{#if project.techs.length > 0}
 				<div class="mt-3 flex flex-wrap gap-1.5">
-					{#each project.techs.slice(0, visibleTechCount) as tech (tech.name)}
-						<span
-							class="inline-flex items-center gap-1.5 rounded bg-secondary/50 px-2 py-0.5 text-xs text-secondary-foreground"
-						>
-							{#if tech.icon_url}
-								<img src={tech.icon_url} alt="" class="h-3.5 w-3.5 rounded-sm object-contain" />
-							{:else}
+					{#each project.techs as tech (tech.name)}
+						<Tooltip.Root>
+							<Tooltip.Trigger>
 								<span
-									class="inline-flex h-3.5 w-3.5 items-center justify-center rounded-sm bg-muted text-[9px] uppercase text-muted-foreground"
+									class="inline-flex items-center gap-1.5 rounded bg-secondary/50 px-2 py-0.5 text-xs text-secondary-foreground transition-colors hover:bg-secondary"
 								>
-									{tech.name.slice(0, 1)}
+									{#if tech.icon_url}
+										<img src={tech.icon_url} alt="" class="h-3.5 w-3.5 rounded-sm object-contain" />
+									{:else}
+										<span
+											class="inline-flex h-3.5 w-3.5 items-center justify-center rounded-sm bg-muted text-[9px] text-muted-foreground uppercase"
+										>
+											{tech.name.slice(0, 1)}
+										</span>
+									{/if}
+									{tech.name}
 								</span>
-							{/if}
-							{tech.name}
-						</span>
+							</Tooltip.Trigger>
+							<Tooltip.Content>
+								<p>{tech.name}</p>
+							</Tooltip.Content>
+						</Tooltip.Root>
 					{/each}
-					{#if project.techs.length > visibleTechCount}
-						<span class="rounded px-2 py-0.5 text-xs text-muted-foreground">
-							+{project.techs.length - visibleTechCount}
-						</span>
-					{/if}
 				</div>
 			{/if}
 		</div>

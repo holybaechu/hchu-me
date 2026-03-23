@@ -6,7 +6,17 @@
 	import Experience from '$lib/components/experience.svelte';
 	import { resolve } from '$app/paths';
 	import * as m from '$lib/paraglide/messages.js';
-	import { Github, Mail, ExternalLink, MapPin, Building2, CircleAlert, Layers, Folder, ArrowDownNarrowWide } from '@lucide/svelte';
+	import {
+		Github,
+		Mail,
+		ExternalLink,
+		MapPin,
+		Building2,
+		CircleAlert,
+		Layers,
+		Folder,
+		ArrowDownNarrowWide
+	} from '@lucide/svelte';
 	import Seo from '$lib/components/seo.svelte';
 
 	let { data } = $props();
@@ -51,16 +61,15 @@
 	});
 </script>
 
-<Seo 
-	title={m.site_title()} 
-	description={m.home_hero_description()} 
-/>
+<Seo title={m.site_title()} description={m.home_hero_description()} />
 
 <!-- Hero -->
 <section class="py-6 md:py-14">
 	<div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between md:gap-10">
 		<div class="order-first flex justify-center md:order-last md:justify-end">
-			<div class="rounded-4xl bg-linear-to-br from-blue-300/25 via-background to-green-600/25 p-2 shadow-lg ring-1 ring-border/80">
+			<div
+				class="rounded-4xl bg-linear-to-br from-blue-300/25 via-background to-green-600/25 p-2 shadow-lg ring-1 ring-border/80"
+			>
 				<img
 					src="/profile.jpeg"
 					alt="holybaechu"
@@ -72,14 +81,18 @@
 		<div class="space-y-4 text-center md:text-left">
 			<!-- Intro -->
 			<div class="space-y-3">
-				<h1 class="text-3xl md:text-5xl font-bold leading-tight">
+				<h1 class="text-3xl leading-tight font-bold md:text-5xl">
 					{m.home_hero_greeting()}<br />
-					<span class="bg-linear-to-r from-blue-300 to-green-600 bg-clip-text text-transparent">{m.home_hero_name_role()}</span>{m.home_hero_intro_suffix()}
+					<span class="bg-linear-to-r from-blue-300 to-green-600 bg-clip-text text-transparent"
+						>{m.home_hero_name_role()}</span
+					>{m.home_hero_intro_suffix()}
 				</h1>
 				<p class="mx-auto max-w-2xl text-lg leading-relaxed md:mx-0">
 					{m.home_hero_description()}
 				</p>
-				<div class="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground md:justify-start">
+				<div
+					class="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground md:justify-start"
+				>
 					<div class="flex items-center gap-1.5">
 						<MapPin class="h-4 w-4" />
 						<span>{m.home_hero_location()}</span>
@@ -93,7 +106,13 @@
 
 			<!-- Social Links -->
 			<div class="flex flex-wrap justify-center gap-3 md:justify-start">
-				<Button href="https://github.com/holybaechu" target="_blank" rel="noopener noreferrer" variant="outline" class="gap-2">
+				<Button
+					href="https://github.com/holybaechu"
+					target="_blank"
+					rel="noopener noreferrer"
+					variant="outline"
+					class="gap-2"
+				>
 					<Github class="h-4 w-4" />
 					holybaechu
 				</Button>
@@ -113,11 +132,13 @@
 {#if data.error}
 	<!-- Error Message -->
 	<section class="py-8">
-		<div class="flex items-start gap-3 p-4 rounded-lg border border-destructive/20 bg-destructive/10 text-destructive">
-			<CircleAlert class="h-5 w-5 mt-0.5 shrink-0" />
+		<div
+			class="flex items-start gap-3 rounded-lg border border-destructive/20 bg-destructive/10 p-4 text-destructive"
+		>
+			<CircleAlert class="mt-0.5 h-5 w-5 shrink-0" />
 			<div>
 				<p class="font-medium">{m.home_error_title()}</p>
-				<p class="text-sm mt-1">{data.error}</p>
+				<p class="mt-1 text-sm">{data.error}</p>
 			</div>
 		</div>
 	</section>
@@ -126,9 +147,9 @@
 <!-- Tech Stack -->
 {#if data.techs.length > 0}
 	<section class="py-2">
-		<div class="flex items-center gap-2 mb-6">
+		<div class="mb-6 flex items-center gap-2">
 			<Layers class="h-5 w-5 text-muted-foreground" />
-			<h2 class="text-sm font-medium text-muted-foreground tracking-wide uppercase">
+			<h2 class="text-sm font-medium tracking-wide text-muted-foreground uppercase">
 				{m.home_sections_techs()}
 			</h2>
 		</div>
@@ -139,11 +160,16 @@
 						<HoverCard.Root openDelay={0} closeDelay={0}>
 							<HoverCard.Trigger>
 								<Sheet.Trigger
-									class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-border/70 bg-card transition-all hover:border-primary/50 hover:bg-accent/40 hover:cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+									class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-border/70 bg-card transition-all hover:cursor-pointer hover:border-primary/50 hover:bg-accent/40 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
 									aria-label={m.home_tech_details_aria({ name: tech.name })}
 								>
 									{#if tech.icon_url}
-										<img src={tech.icon_url} alt={tech.name} class="h-7 w-7 object-contain" loading="lazy" />
+										<img
+											src={tech.icon_url}
+											alt={tech.name}
+											class="h-7 w-7 object-contain"
+											loading="lazy"
+										/>
 									{:else}
 										<span class="text-sm font-semibold text-muted-foreground">
 											{tech.name.slice(0, 1).toUpperCase()}
@@ -153,9 +179,16 @@
 							</HoverCard.Trigger>
 							<HoverCard.Content side="top" align="center" class="w-64">
 								<div class="flex items-start gap-3">
-									<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-card">
+									<div
+										class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-card"
+									>
 										{#if tech.icon_url}
-											<img src={tech.icon_url} alt={tech.name} class="h-6 w-6 object-contain" loading="lazy" />
+											<img
+												src={tech.icon_url}
+												alt={tech.name}
+												class="h-6 w-6 object-contain"
+												loading="lazy"
+											/>
 										{:else}
 											<span class="text-sm font-semibold text-muted-foreground">
 												{tech.name.slice(0, 1).toUpperCase()}
@@ -163,7 +196,7 @@
 										{/if}
 									</div>
 									<div class="space-y-1">
-										<p class="font-semibold leading-none">{tech.name}</p>
+										<p class="leading-none font-semibold">{tech.name}</p>
 										<p class="text-sm text-muted-foreground">
 											{m.home_tech_used_in_projects({ count: tech.projects.length })}
 										</p>
@@ -175,9 +208,16 @@
 						<Sheet.Content side="right" class="w-full max-w-md border-border">
 							<Sheet.Header>
 								<div class="flex items-center gap-3">
-									<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border/70 bg-card">
+									<div
+										class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border/70 bg-card"
+									>
 										{#if tech.icon_url}
-											<img src={tech.icon_url} alt={tech.name} class="h-6 w-6 object-contain" loading="lazy" />
+											<img
+												src={tech.icon_url}
+												alt={tech.name}
+												class="h-6 w-6 object-contain"
+												loading="lazy"
+											/>
 										{:else}
 											<span class="text-sm font-semibold text-muted-foreground">
 												{tech.name.slice(0, 1).toUpperCase()}
@@ -195,11 +235,7 @@
 							<div class="space-y-2 px-4 pb-4">
 								{#if tech.projects.length > 0}
 									{#each tech.projects as project (project.id)}
-										<ProjectCard
-											project={project}
-											href={`/project/${project.slug}`}
-											compact={true}
-										/>
+										<ProjectCard {project} href={`/project/${project.slug}`} compact={true} />
 									{/each}
 								{:else}
 									<p class="text-sm text-muted-foreground">{m.home_tech_no_linked_projects()}</p>
@@ -215,9 +251,9 @@
 
 <!-- Experiences -->
 <section class="py-2">
-	<div class="flex items-center gap-2 mb-6">
+	<div class="mb-6 flex items-center gap-2">
 		<ArrowDownNarrowWide class="h-5 w-5 text-muted-foreground" />
-		<h2 class="text-sm font-medium text-muted-foreground tracking-wide uppercase">
+		<h2 class="text-sm font-medium tracking-wide text-muted-foreground uppercase">
 			{m.home_sections_experiences_title()}
 		</h2>
 	</div>
@@ -231,28 +267,28 @@
 <!-- Projects -->
 {#if data.projects.length > 0}
 	<section class="py-2">
-		<div class="flex items-center gap-2 mb-6">
+		<div class="mb-6 flex items-center gap-2">
 			<Folder class="h-5 w-5 text-muted-foreground" />
-			<h2 class="text-sm font-medium text-muted-foreground tracking-wide uppercase">
+			<h2 class="text-sm font-medium tracking-wide text-muted-foreground uppercase">
 				{m.home_sections_projects()}
 			</h2>
 		</div>
 		<div class="grid gap-4 md:grid-cols-2">
 			{#each projectsWithTechMeta as project (project.id)}
-				<ProjectCard project={project} href={`/project/${project.slug}`} />
+				<ProjectCard {project} href={`/project/${project.slug}`} />
 			{/each}
 		</div>
 	</section>
 {:else if !data.error}
 	<!-- Empty State -->
-	<section class="py-8 border-t border-border">
-		<div class="flex items-center gap-2 mb-6">
+	<section class="border-t border-border py-8">
+		<div class="mb-6 flex items-center gap-2">
 			<Folder class="h-5 w-5 text-muted-foreground" />
-			<h2 class="text-sm font-medium text-muted-foreground tracking-wide uppercase">
+			<h2 class="text-sm font-medium tracking-wide text-muted-foreground uppercase">
 				{m.home_sections_projects()}
 			</h2>
 		</div>
-		<div class="p-8 text-center border border-dashed border-border rounded-lg">
+		<div class="rounded-lg border border-dashed border-border p-8 text-center">
 			<p class="text-muted-foreground">{m.home_empty_no_projects()}</p>
 		</div>
 	</section>
