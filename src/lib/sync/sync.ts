@@ -22,10 +22,6 @@ import {
 	updateLastSyncTime
 } from './db';
 
-function hasContent(content: string | null | undefined): content is string {
-	return Boolean(content?.trim());
-}
-
 async function resolvePageContent(
 	notion: NotionClient,
 	pageId: string,
@@ -34,17 +30,13 @@ async function resolvePageContent(
 ): Promise<string> {
 	const storedContent = await getStoredContent();
 
-	if (!shouldRefreshContent && hasContent(storedContent)) {
+	if (!shouldRefreshContent && storedContent !== undefined && storedContent !== null) {
 		return storedContent;
 	}
 
 	const fetchedContent = (await notion.pages.retrieveMarkdown({ page_id: pageId })).markdown;
 
-	if (hasContent(fetchedContent)) {
-		return fetchedContent;
-	}
-
-	return storedContent;
+	return fetchedContent !== undefined && fetchedContent !== null ? fetchedContent : storedContent;
 }
 
 export async function syncProject(
@@ -164,7 +156,10 @@ export async function syncAll(env: App.Platform['env']) {
 	const deletedTechCount = await cleanupDeletedTechs(DB, notionTechIds);
 	const deletedBlogCount = await cleanupDeletedBlogs(DB, notionBlogIds);
 
-	const now = new Date().toISOString();
+	const syncTime = new Date();
+	syncTime.setMinutes(syncTime.getMinutes() - 1);
+	const now = syncTime.toISOString();
+
 	await updateLastSyncTime(DB, now);
 
 	return {
