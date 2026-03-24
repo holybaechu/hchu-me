@@ -17,7 +17,7 @@
 	</Button>
 </div>
 
-<section class="space-y-6 pb-8">
+<section class="space-y-6">
 	<div class="space-y-2">
 		<h1 class="text-3xl font-bold md:text-4xl">{m.blog_title()}</h1>
 	</div>
