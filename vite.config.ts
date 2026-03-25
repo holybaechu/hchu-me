@@ -3,12 +3,16 @@ import tailwindcss from '@tailwindcss/vite';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 import cloudflareAppendTrigger from './scripts/cloudflare-append-trigger';
+import Icons from 'unplugin-icons/vite';
 
 export default defineConfig({
 	plugins: [
 		tailwindcss(),
 		sveltekit(),
 		cloudflareAppendTrigger(),
-		paraglideVitePlugin({ project: './project.inlang', outdir: './src/lib/paraglide' })
+		paraglideVitePlugin({ project: './project.inlang', outdir: './src/lib/paraglide' }),
+		Icons({
+			compiler: 'svelte'
+		})
 	]
 });

@@ -7,7 +7,6 @@
 	import { resolve } from '$app/paths';
 	import * as m from '$lib/paraglide/messages.js';
 	import {
-		Github,
 		Mail,
 		ExternalLink,
 		MapPin,
@@ -17,6 +16,8 @@
 		Folder,
 		ArrowDownNarrowWide
 	} from '@lucide/svelte';
+	import MdiGithub from '~icons/mdi/github';
+	import MdiInstagram from '~icons/mdi/instagram';
 	import Seo from '$lib/components/seo.svelte';
 
 	let { data } = $props();
@@ -113,7 +114,17 @@
 					variant="outline"
 					class="gap-2"
 				>
-					<Github class="h-4 w-4" />
+					<MdiGithub class="h-4 w-4" />
+					holybaechu
+				</Button>
+				<Button
+					href="https://instagram.com/holybaechu"
+					target="_blank"
+					rel="noopener noreferrer"
+					variant="outline"
+					class="gap-2"
+				>
+					<MdiInstagram class="h-4 w-4" />
 					holybaechu
 				</Button>
 				<Button href="mailto:hello@hchu.me" variant="outline" class="gap-2">
