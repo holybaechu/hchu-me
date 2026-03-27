@@ -1,7 +1,7 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"layout_nav_blog": "Blog",
-	"site_title": "hchu.me",
+	"site_title": "holybaechu",
 	"home_hero_greeting": "Hello,",
 	"home_hero_name_role": "I'm Joonhoo Bae, a full-stack developer",
 	"home_hero_intro_suffix": ".",

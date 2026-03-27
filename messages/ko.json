@@ -1,7 +1,7 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"layout_nav_blog": "블로그",
-	"site_title": "hchu.me",
+	"site_title": "holybaechu",
 	"home_hero_greeting": "안녕하세요,",
 	"home_hero_name_role": "풀스택 개발자 배준후",
 	"home_hero_intro_suffix": "입니다.",
