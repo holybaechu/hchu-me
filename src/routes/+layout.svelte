@@ -12,7 +12,8 @@
 		DropdownMenuTrigger
 	} from '$lib/components/ui/dropdown-menu';
 	import { toggleMode, ModeWatcher } from 'mode-watcher';
-	import { Languages, Moon, Sun, Github, Mail } from '@lucide/svelte';
+	import { Languages, Moon, Sun, Mail } from '@lucide/svelte';
+	import MdiGithub from '~icons/mdi/github';
 
 	let { children } = $props();
 
@@ -100,7 +101,7 @@
 				class="transition-colors hover:text-foreground"
 				aria-label="GitHub"
 			>
-				<Github class="h-5 w-5" />
+				<MdiGithub class="h-5 w-5" />
 			</a>
 			<a
 				href="mailto:hello@hchu.me"
