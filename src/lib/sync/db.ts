@@ -126,7 +126,8 @@ export async function upsertBlog(db: D1Database, blog: BlogWithContent): Promise
 			title: blog.title,
 			slug: blog.slug,
 			description: blog.description,
-			content: blog.content
+			content: blog.content,
+			tags: blog.tags
 		})
 		.onConflictDoUpdate({
 			target: blogs.id,
@@ -134,7 +135,8 @@ export async function upsertBlog(db: D1Database, blog: BlogWithContent): Promise
 				title: blog.title,
 				slug: blog.slug,
 				description: blog.description,
-				content: blog.content
+				content: blog.content,
+				tags: blog.tags
 			}
 		});
 }

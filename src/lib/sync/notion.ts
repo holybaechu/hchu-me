@@ -3,7 +3,8 @@ import {
 	NOTION_PROP_SLUG,
 	NOTION_PROP_DESCRIPTION,
 	NOTION_PROP_GITHUB,
-	NOTION_PROP_WEBSITE
+	NOTION_PROP_WEBSITE,
+	NOTION_PROP_TAGS
 } from '$lib';
 import { Client as NotionClient, type PageObjectResponse } from '@notionhq/client';
 import type { BlogData, ProjectData, TechLookupItem } from './types';
@@ -66,11 +67,22 @@ export function extractBlogData(page: PageObjectResponse): BlogData | null {
 	const description =
 		descProp?.type === 'rich_text' ? descProp.rich_text.map((t) => t.plain_text).join('') : null;
 
+	const tagsProp = props[NOTION_PROP_TAGS];
+	const tags =
+		tagsProp?.type === 'multi_select'
+			? tagsProp.multi_select.map((tag) => ({
+					id: tag.id,
+					name: tag.name,
+					color: tag.color
+				}))
+			: [];
+
 	return {
 		id: page.id,
 		title,
 		slug,
 		description,
+		tags,
 		lastEditedTime: page.last_edited_time
 	};
 }

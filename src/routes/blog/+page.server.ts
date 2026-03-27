@@ -1,12 +1,14 @@
 import type { PageServerLoad } from './$types';
 import { getDb } from '$lib/server/db/client';
 import { blogs } from '$lib/server/db/schema';
+import type { BlogTagData } from '$lib/sync/types';
 
 interface BlogItem {
 	id: string;
 	title: string;
 	slug: string;
 	description: string | null;
+	tags: BlogTagData[];
 }
 
 interface LoadResult {
@@ -32,7 +34,8 @@ export const load: PageServerLoad = async ({ platform }) => {
 				id: blogs.id,
 				title: blogs.title,
 				slug: blogs.slug,
-				description: blogs.description
+				description: blogs.description,
+				tags: blogs.tags
 			})
 			.from(blogs)
 			.orderBy(blogs.title);

@@ -9,11 +9,18 @@ export type ProjectData = {
 };
 
 export type ProjectWithContent = ProjectData & { content: string };
+export type BlogTagData = {
+	id: string;
+	name: string;
+	color: string;
+};
+
 export type BlogData = {
 	id: string;
 	title: string;
 	slug: string;
 	description: string | null;
+	tags: BlogTagData[];
 	lastEditedTime: string;
 };
 export type BlogWithContent = BlogData & { content: string };
