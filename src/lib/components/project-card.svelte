@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { ChevronRight, ExternalLink, Github } from '@lucide/svelte';
+	import { ChevronRight, ExternalLink } from '@lucide/svelte';
+	import MdiGithub from '~icons/mdi/github';
 	import { goto } from '$app/navigation';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import * as Tooltip from '$lib/components/ui/tooltip';
@@ -123,7 +124,7 @@
 								aria-label={m.project_actions_open_github()}
 								title={m.project_actions_github()}
 							>
-								<Github class="h-3.5 w-3.5" />
+								<MdiGithub class="h-3.5 w-3.5" />
 							</Button>
 						{/if}
 						{#if project.website_url}

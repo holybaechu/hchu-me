@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { ArrowLeft, ExternalLink, Folder, Github } from '@lucide/svelte';
+	import { ArrowLeft, ExternalLink, Folder } from '@lucide/svelte';
+	import MdiGithub from '~icons/mdi/github';
 	import { Button } from '$lib/components/ui/button';
 	import * as m from '$lib/paraglide/messages.js';
 	import Seo from '$lib/components/seo.svelte';
@@ -40,7 +41,7 @@
 							aria-label={m.project_actions_open_github()}
 							title={m.project_actions_github()}
 						>
-							<Github class="h-3.5 w-3.5" />
+							<MdiGithub class="h-3.5 w-3.5" />
 						</Button>
 					{/if}
 					{#if data.project.website_url}
