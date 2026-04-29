@@ -28,7 +28,7 @@ importers:
         version: 3.12.1
       '@lucide/svelte':
         specifier: ^1.0.0
-        version: 1.12.0(svelte@5.55.5(@typescript-eslint/types@8.59.1))
+        version: 1.14.0(svelte@5.55.5(@typescript-eslint/types@8.59.1))
       '@notionhq/client':
         specifier: ^5.11.1
         version: 5.20.0
@@ -1104,8 +1104,8 @@ packages:
   '@lix-js/server-protocol-schema@0.1.1':
     resolution: {integrity: sha512-jBeALB6prAbtr5q4vTuxnRZZv1M2rKe8iNqRQhFJ4Tv7150unEa0vKyz0hs8Gl3fUGsWaNJBh3J8++fpbrpRBQ==}
 
-  '@lucide/svelte@1.12.0':
-    resolution: {integrity: sha512-zU5wSMAFfc4/RME6tEA9+DK9tVye2/yi9oYVbaXmFyfjAskrXIUlPddDv+6VUN1FoBY6iNczhDs3UcxB0ixsyA==}
+  '@lucide/svelte@1.14.0':
+    resolution: {integrity: sha512-MVuP5VRCBQa2OaIpaRbuEV4k5OV2dy9MyxA6Tf4Sz/IN0v3zzUU72ObHc9r2Zn/wSMXDg6lLrHrczqI7w7gCzQ==}
     peerDependencies:
       svelte: ^5
 
@@ -3589,7 +3589,7 @@ snapshots:
 
   '@lix-js/server-protocol-schema@0.1.1': {}
 
-  '@lucide/svelte@1.12.0(svelte@5.55.5(@typescript-eslint/types@8.59.1))':
+  '@lucide/svelte@1.14.0(svelte@5.55.5(@typescript-eslint/types@8.59.1))':
     dependencies:
       svelte: 5.55.5(@typescript-eslint/types@8.59.1)
 
