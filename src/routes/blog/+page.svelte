@@ -6,38 +6,35 @@
 	import Seo from '$lib/components/seo.svelte';
 
 	let { data } = $props();
+	type BlogTag = NonNullable<(typeof data.blogs)[number]['tags']>[number];
 
-	let selectedTagIds = $state<Set<string>>(new Set());
+	let selectedTagIds = $state<string[]>([]);
 
 	function toggleTag(tagId: string) {
-		const newSet = new Set(selectedTagIds);
-		if (newSet.has(tagId)) {
-			newSet.delete(tagId);
-		} else {
-			newSet.add(tagId);
-		}
-		selectedTagIds = newSet;
+		selectedTagIds = selectedTagIds.includes(tagId)
+			? selectedTagIds.filter((id) => id !== tagId)
+			: [...selectedTagIds, tagId];
 	}
 
 	let uniqueTags = $derived.by(() => {
-		const map = new Map();
+		const tags: BlogTag[] = [];
 		for (const blog of data.blogs) {
 			if (!blog.tags) continue;
 			for (const tag of blog.tags) {
-				if (!map.has(tag.id)) {
-					map.set(tag.id, tag);
+				if (!tags.some((existing) => existing.id === tag.id)) {
+					tags.push(tag);
 				}
 			}
 		}
-		return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name));
+		return tags.sort((a, b) => a.name.localeCompare(b.name));
 	});
 
 	let filteredBlogs = $derived.by(() => {
-		if (selectedTagIds.size === 0) return data.blogs;
+		if (selectedTagIds.length === 0) return data.blogs;
 		return data.blogs.filter((blog) => {
 			if (!blog.tags) return false;
 			const tagIds = blog.tags.map((t) => t.id);
-			return Array.from(selectedTagIds).every((id) => tagIds.includes(id));
+			return selectedTagIds.every((id) => tagIds.includes(id));
 		});
 	});
 
@@ -101,7 +98,7 @@
 			<div class="mb-6 flex flex-wrap gap-2">
 				{#each uniqueTags as tag (tag.id)}
 					<button
-						class={`rounded-full px-3 py-1 text-sm font-medium transition-colors cursor-pointer ${getTagColorClass(tag.color, selectedTagIds.has(tag.id))}`}
+						class={`cursor-pointer rounded-full px-3 py-1 text-sm font-medium transition-colors ${getTagColorClass(tag.color, selectedTagIds.includes(tag.id))}`}
 						onclick={() => toggleTag(tag.id)}
 					>
 						{tag.name}

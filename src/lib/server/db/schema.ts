@@ -25,7 +25,10 @@ export const blogs = sqliteTable(
 		slug: text('slug').notNull(),
 		description: text('description'),
 		content: text('content').notNull(),
-		tags: text('tags', { mode: 'json' }).$type<BlogTagData[]>().default(sql`'[]'`).notNull()
+		tags: text('tags', { mode: 'json' })
+			.$type<BlogTagData[]>()
+			.default(sql`'[]'`)
+			.notNull()
 	},
 	(table) => [uniqueIndex('blogs_slug_unique').on(table.slug)]
 );

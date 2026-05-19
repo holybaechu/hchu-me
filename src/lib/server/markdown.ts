@@ -116,6 +116,44 @@ function renderCodeBlock({ text, lang, escaped }: Tokens.Code): string {
 	return `<div class="not-prose markdown-code-shell">${header}<pre class="markdown-code-block"><code${codeClass}>${content}\n</code></pre></div>`;
 }
 
+function normalizeNotionMarkdown(content: string): string {
+	const lines = content.split('\n');
+	const normalized: string[] = [];
+	let fence: { marker: '`' | '~'; length: number } | null = null;
+
+	for (let index = 0; index < lines.length; index++) {
+		const line = lines[index];
+		const comparableLine = line.replace(/\r$/, '');
+		const fenceMatch = /^(?: {0,3})(`{3,}|~{3,})/.exec(comparableLine);
+
+		if (fenceMatch) {
+			const marker = fenceMatch[1][0] as '`' | '~';
+			const length = fenceMatch[1].length;
+
+			if (!fence) {
+				fence = { marker, length };
+			} else if (marker === fence.marker && length >= fence.length) {
+				fence = null;
+			}
+		}
+
+		normalized.push(line);
+
+		if (fence) continue;
+
+		const nextLine = lines[index + 1];
+		const endsRawTable = /<\/table>[ \t\r]*$/i.test(line);
+		const nextLineHasContent = nextLine !== undefined && nextLine.replace(/\r$/, '').trim() !== '';
+
+		if (endsRawTable && nextLineHasContent) {
+			// Notion emits tables as raw HTML; Marked needs a blank line before Markdown resumes.
+			normalized.push('');
+		}
+	}
+
+	return normalized.join('\n');
+}
+
 const markdown = new Marked({
 	gfm: true,
 	breaks: true
@@ -144,6 +182,35 @@ markdown.use(
 	}
 );
 
+async function renderTableCellMarkdown(html: string): Promise<string> {
+	const cellPattern = /(<t[hd]\b[^>]*>)([\s\S]*?)(<\/t[hd]>)/gi;
+	let result = '';
+	let lastIndex = 0;
+	let match: RegExpExecArray | null;
+
+	while ((match = cellPattern.exec(html)) !== null) {
+		const [fullMatch, openTag, cellContent, closeTag] = match;
+		const leadingWhitespace = cellContent.match(/^\s*/)?.[0] ?? '';
+		const trailingWhitespace = cellContent.match(/\s*$/)?.[0] ?? '';
+		const contentStart = leadingWhitespace.length;
+		const contentEnd = cellContent.length - trailingWhitespace.length;
+		const content = cellContent.slice(contentStart, contentEnd);
+		const renderedContent = content ? await markdown.parseInline(content) : '';
+
+		result += html.slice(lastIndex, match.index);
+		result += openTag;
+		result += leadingWhitespace;
+		result += renderedContent;
+		result += trailingWhitespace;
+		result += closeTag;
+
+		lastIndex = match.index + fullMatch.length;
+	}
+
+	return result + html.slice(lastIndex);
+}
+
 export async function renderMarkdown(content: string): Promise<string> {
-	return await markdown.parse(content ?? '');
+	const html = await markdown.parse(normalizeNotionMarkdown(content ?? ''));
+	return await renderTableCellMarkdown(html);
 }
