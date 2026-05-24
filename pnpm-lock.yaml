@@ -31,7 +31,7 @@ importers:
         version: 1.14.0(svelte@5.55.9(@typescript-eslint/types@8.59.4))
       '@notionhq/client':
         specifier: ^5.11.1
-        version: 5.20.0
+        version: 5.22.0
       '@sveltejs/adapter-cloudflare':
         specifier: ^7.2.6
         version: 7.2.8(@sveltejs/kit@2.59.1(@sveltejs/vite-plugin-svelte@7.1.2(svelte@5.55.9(@typescript-eslint/types@8.59.4))(vite@8.0.14(@types/node@24.12.4)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.21.0)))(svelte@5.55.9(@typescript-eslint/types@8.59.4))(typescript@6.0.3)(vite@8.0.14(@types/node@24.12.4)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.21.0)))(wrangler@4.91.0(@cloudflare/workers-types@4.20260517.1))
@@ -1114,8 +1114,8 @@ packages:
       '@emnapi/core': ^1.7.1
       '@emnapi/runtime': ^1.7.1
 
-  '@notionhq/client@5.20.0':
-    resolution: {integrity: sha512-MS0DFSfHPLZ0wi+e9mOP16gCCYbWAkaiMuu/rVK9KxDlKac4oAgHReOfTglcd77g/nlg78snp+KB7fNWP75bEw==}
+  '@notionhq/client@5.22.0':
+    resolution: {integrity: sha512-lZ3JGBCd6O6MNHWn/58QcUqX1FgmlcODcx/EaUEEpuxLXF5tSi+v29Vzoz8mZ6JgDWDn5pMzzjB69QevYjQQZA==}
     engines: {node: '>=18'}
 
   '@oxc-project/types@0.132.0':
@@ -3574,7 +3574,7 @@ snapshots:
       '@tybys/wasm-util': 0.10.2
     optional: true
 
-  '@notionhq/client@5.20.0': {}
+  '@notionhq/client@5.22.0': {}
 
   '@oxc-project/types@0.132.0': {}
 
