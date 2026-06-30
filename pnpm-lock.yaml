@@ -91,13 +91,13 @@ importers:
         version: 1.1.0(svelte@5.56.4(@typescript-eslint/types@8.62.0))
       prettier:
         specifier: ^3.8.1
-        version: 3.9.1
+        version: 3.9.4
       prettier-plugin-svelte:
         specifier: ^3.4.1
-        version: 3.5.2(prettier@3.9.1)(svelte@5.56.4(@typescript-eslint/types@8.62.0))
+        version: 3.5.2(prettier@3.9.4)(svelte@5.56.4(@typescript-eslint/types@8.62.0))
       prettier-plugin-tailwindcss:
         specifier: ^0.7.2
-        version: 0.7.4(prettier-plugin-svelte@3.5.2(prettier@3.9.1)(svelte@5.56.4(@typescript-eslint/types@8.62.0)))(prettier@3.9.1)
+        version: 0.7.4(prettier-plugin-svelte@3.5.2(prettier@3.9.4)(svelte@5.56.4(@typescript-eslint/types@8.62.0)))(prettier@3.9.4)
       svelte:
         specifier: ^5.51.0
         version: 5.56.4(@typescript-eslint/types@8.62.0)
@@ -185,9 +185,6 @@ packages:
     engines: {node: '>=16'}
     cpu: [x64]
     os: [win32]
-
-  '@cloudflare/workers-types@4.20260628.1':
-    resolution: {integrity: sha512-fMy5zBnNl/PxGqDzSOQb1TdqyR1sRT1Z7T4F8/cqtxpZ1w8VkejWi0qUH7GZE0I2gJyapdP0oW4pNZfxUbekmw==}
 
   '@cloudflare/workers-types@4.20260629.1':
     resolution: {integrity: sha512-5vq2ErIFVRSQ8Dcw5YOeEoBdZBudqBjHFKTWD3SBGiJR5hD1+/86aRUV/DTpEK9sXXCGOTGgpWBGlPSlW7djVg==}
@@ -2398,8 +2395,8 @@ packages:
       prettier-plugin-svelte:
         optional: true
 
-  prettier@3.9.1:
-    resolution: {integrity: sha512-ppiDo2CSwexck1eyZUwJHg/N3nf1+6IRCv7W/VJ5vaLnVCmB7+3CdRfMwoCHBBX6xTrREDTksZ4OZl5SSf4zXA==}
+  prettier@3.9.4:
+    resolution: {integrity: sha512-yWG/o/4oJfo036EKAfK6ACAoDOfHeRHx4tuxkfBZiauURiaSmYwlpOr5LQqKtIkRD2z1PLteme2WoxEnj4tHTg==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -2807,8 +2804,6 @@ snapshots:
 
   '@cloudflare/workerd-windows-64@1.20260625.1':
     optional: true
-
-  '@cloudflare/workers-types@4.20260628.1': {}
 
   '@cloudflare/workers-types@4.20260629.1': {}
 
@@ -3411,7 +3406,7 @@ snapshots:
 
   '@sveltejs/adapter-cloudflare@7.2.9(@sveltejs/kit@2.68.0(@sveltejs/vite-plugin-svelte@7.1.2(svelte@5.56.4(@typescript-eslint/types@8.62.0))(vite@8.1.0(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)))(svelte@5.56.4(@typescript-eslint/types@8.62.0))(typescript@6.0.3)(vite@8.1.0(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)))(wrangler@4.105.0(@cloudflare/workers-types@4.20260629.1))':
     dependencies:
-      '@cloudflare/workers-types': 4.20260628.1
+      '@cloudflare/workers-types': 4.20260629.1
       '@sveltejs/kit': 2.68.0(@sveltejs/vite-plugin-svelte@7.1.2(svelte@5.56.4(@typescript-eslint/types@8.62.0))(vite@8.1.0(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)))(svelte@5.56.4(@typescript-eslint/types@8.62.0))(typescript@6.0.3)(vite@8.1.0(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4))
       worktop: 0.8.0-next.18
       wrangler: 4.105.0(@cloudflare/workers-types@4.20260629.1)
@@ -4617,18 +4612,18 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-svelte@3.5.2(prettier@3.9.1)(svelte@5.56.4(@typescript-eslint/types@8.62.0)):
+  prettier-plugin-svelte@3.5.2(prettier@3.9.4)(svelte@5.56.4(@typescript-eslint/types@8.62.0)):
     dependencies:
-      prettier: 3.9.1
+      prettier: 3.9.4
       svelte: 5.56.4(@typescript-eslint/types@8.62.0)
 
-  prettier-plugin-tailwindcss@0.7.4(prettier-plugin-svelte@3.5.2(prettier@3.9.1)(svelte@5.56.4(@typescript-eslint/types@8.62.0)))(prettier@3.9.1):
+  prettier-plugin-tailwindcss@0.7.4(prettier-plugin-svelte@3.5.2(prettier@3.9.4)(svelte@5.56.4(@typescript-eslint/types@8.62.0)))(prettier@3.9.4):
     dependencies:
-      prettier: 3.9.1
+      prettier: 3.9.4
     optionalDependencies:
-      prettier-plugin-svelte: 3.5.2(prettier@3.9.1)(svelte@5.56.4(@typescript-eslint/types@8.62.0))
+      prettier-plugin-svelte: 3.5.2(prettier@3.9.4)(svelte@5.56.4(@typescript-eslint/types@8.62.0))
 
-  prettier@3.9.1: {}
+  prettier@3.9.4: {}
 
   punycode@2.3.1: {}
 
