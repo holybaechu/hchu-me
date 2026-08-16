@@ -31,7 +31,7 @@ importers:
         version: 1.30.0(svelte@5.56.9(@typescript-eslint/types@8.66.0))
       '@notionhq/client':
         specifier: ^5.11.1
-        version: 5.24.0
+        version: 5.25.2
       '@sveltejs/adapter-cloudflare':
         specifier: ^7.2.6
         version: 7.2.9(@sveltejs/kit@2.70.2(@sveltejs/vite-plugin-svelte@7.3.0(svelte@5.56.9(@typescript-eslint/types@8.66.0))(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.11)))(svelte@5.56.9(@typescript-eslint/types@8.66.0))(typescript@6.0.3)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.11)))(wrangler@4.120.1(@cloudflare/workers-types@4.20260702.1))
@@ -1127,8 +1127,8 @@ packages:
   '@mermaid-js/parser@1.2.0':
     resolution: {integrity: sha512-oYPyv8A4As1yH5Bx+04iQEQxXuIQDe0GKCNSRgao6z8AM9jixXIfP0vsppRLvGf+nKIOb9/LdpWA4YuJiVvESA==}
 
-  '@notionhq/client@5.24.0':
-    resolution: {integrity: sha512-fd71hjK6QZYggwWdaBeLu4ajBQ4HTK0R6bj7v9GMFhilgsdMRJ5HDHQtKbc8/y6E5XXLYgNpDz78Q+BdXHa1ug==}
+  '@notionhq/client@5.25.2':
+    resolution: {integrity: sha512-kbaCZxiTxuWS7nTP29s3q9qbfMGd4cyfjMMdpVr7vK7SuB+0C6zBAP1sw8Gx/HKa+giWGnReuFovamN696Qy8w==}
     engines: {node: '>=18'}
 
   '@oxc-project/types@0.143.0':
@@ -3630,7 +3630,7 @@ snapshots:
     dependencies:
       '@chevrotain/types': 11.1.2
 
-  '@notionhq/client@5.24.0': {}
+  '@notionhq/client@5.25.2': {}
 
   '@oxc-project/types@0.143.0': {}
 
