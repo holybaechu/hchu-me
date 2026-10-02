@@ -31,7 +31,7 @@ importers:
         version: 1.49.0(svelte@5.57.1(@typescript-eslint/types@8.70.1))
       '@notionhq/client':
         specifier: ^5.11.1
-        version: 5.26.0
+        version: 5.27.0
       '@sveltejs/adapter-cloudflare':
         specifier: ^7.2.6
         version: 7.2.9(@sveltejs/kit@2.70.3(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.1(@typescript-eslint/types@8.70.1))(vite@8.3.1(@types/node@24.19.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)))(svelte@5.57.1(@typescript-eslint/types@8.70.1))(typescript@6.0.3)(vite@8.3.1(@types/node@24.19.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)))(wrangler@4.141.0(@cloudflare/workers-types@4.20260702.1)(@types/node@24.19.0))
@@ -1229,8 +1229,8 @@ packages:
       '@emnapi/core': ^1.7.1 || ^2.0.0-alpha.4
       '@emnapi/runtime': ^1.7.1 || ^2.0.0-alpha.4
 
-  '@notionhq/client@5.26.0':
-    resolution: {integrity: sha512-Oc3438nQ5YmZkVO7YJG8fcTYl0V46CirdCvO33azZ9f7ZfD2rsHE4fUVANJiBB9Xf1sqpCs82nd8oKPxeXLmMg==}
+  '@notionhq/client@5.27.0':
+    resolution: {integrity: sha512-JnkLtAzSDrEnvtZ8dQ5L4KO+xyL5g01xK5qmKTmhJ5KFY8LWsMyFG033vHCj0mFcsz9thAMjfcAQz/SWxiexag==}
     engines: {node: '>=18'}
 
   '@oxc-minify/binding-android-arm-eabi@0.136.0':
@@ -4011,7 +4011,7 @@ snapshots:
       '@tybys/wasm-util': 0.10.4
     optional: true
 
-  '@notionhq/client@5.26.0': {}
+  '@notionhq/client@5.27.0': {}
 
   '@oxc-minify/binding-android-arm-eabi@0.136.0':
     optional: true
