@@ -20,7 +20,7 @@
 		"db:migrate:remote": "wrangler d1 migrations apply hchu-me --remote"
 	},
 	"devDependencies": {
-		"@cloudflare/workers-types": "^4.20260307.1",
+		"@cloudflare/workers-types": "^5.0.0",
 		"@eslint/compat": "^2.0.2",
 		"@eslint/js": "^10.0.0",
 		"@iconify-json/mdi": "^1.2.3",
